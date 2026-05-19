@@ -1,0 +1,73 @@
+AIM
+
+To write a Java program to send a text message from one system to another system and receive the response using socket programming.
+
+ALGORITHM
+Step 1:
+
+Create a ServerSocket object on the server side to listen on a specific port number (for example, 12345).
+
+Step 2:
+
+Use the accept() method of the ServerSocket class to wait for a client connection request.
+
+Step 3:
+
+After a client connects, create a Socket object on the server side to establish communication between the client and server.
+
+Step 4:
+
+Create input and output streams for communication:
+
+On the server side:
+Create a BufferedReader to receive messages from the client.
+Create a PrintWriter to send messages to the client.
+On the client side:
+Create a BufferedReader to receive messages from the server.
+Create a PrintWriter to send messages to the server.
+Step 5:
+
+On the client side, send a message (for example, "Hello Server!") to the server using the PrintWriter.
+
+Step 6:
+
+On the server side, receive the client’s message by reading data from the BufferedReader.
+
+Step 7:
+
+Process the received message on the server side, prepare a response message (for example, "Message received!"), and send it back to the client using the PrintWriter.
+
+Step 8:
+
+On the client side, read the response sent by the server using the BufferedReader.
+
+Step 9:
+
+Display the exchanged messages:
+
+The server displays the message received from the client.
+The client displays the response received from the server.
+Step 10:
+
+Close the client-side resources:
+
+BufferedReader
+PrintWriter
+Socket
+
+to terminate the client connection.
+
+Step 11:
+
+Close the server-side resources:
+
+BufferedReader
+PrintWriter
+Socket
+ServerSocket
+
+to stop the server and terminate the connection.
+
+Step 12:
+
+End the program after both the client and server close their respective connections.

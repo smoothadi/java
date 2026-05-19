@@ -1,0 +1,68 @@
+AIM
+
+To write a Java program that implements a simple graphical calculator using Swing to perform basic arithmetic operations such as addition, subtraction, multiplication, and division.
+
+ALGORITHM
+Step 1:
+
+Create a JFrame for the calculator window with the title "Calculator" and set its size to 450 × 600 pixels.
+
+Step 2:
+
+Create a non-editable JTextField at the top of the frame to display user inputs and calculation results, and set its font size to 36.
+
+Step 3:
+
+Create a JPanel with a GridLayout of 5 × 4 to arrange the calculator buttons without gaps.
+
+Step 4:
+
+Define an array containing button labels for:
+
+Digits (0–9)
+Arithmetic operators (+, -, *, /)
+Clear button (C)
+Equals button (=)
+Step 5:
+
+Create JButton objects for each label and set their font size to 24.
+
+Step 6:
+
+Attach an ActionListener to each button so that clicking a button calls the buttonClicked() method.
+
+Step 7:
+
+Add all buttons to the JPanel.
+
+Step 8:
+
+Set the size of the "C" button to 400 × 80 pixels to improve visibility.
+
+Step 9:
+
+Set the layout of the JFrame to BorderLayout, add the JTextField to the top (BorderLayout.NORTH), and add the button panel to the center (BorderLayout.CENTER).
+
+Step 10:
+
+Implement the buttonClicked() method:
+
+Clear the text field when the "C" button is clicked.
+Perform the calculation and display the result when the "=" button is clicked.
+Store the operator and first number when an operator button is clicked.
+Append digit values to the text field when number buttons are pressed.
+Step 11:
+
+Create a calculate() method to perform arithmetic operations based on the selected operator.
+
+Step 12:
+
+Display the calculated result in the text field and handle errors such as division by zero by displaying "NaN".
+
+Step 13:
+
+Use SwingUtilities.invokeLater() to ensure that the graphical user interface is created and updated on the Event Dispatch Thread.
+
+Step 14:
+
+Run the program and allow the user to perform arithmetic calculations through the graphical interface.

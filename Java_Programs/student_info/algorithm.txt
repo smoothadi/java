@@ -1,0 +1,75 @@
+AIM
+
+To write a Java program to maintain student information in a text file.
+
+ALGORITHM
+Step 1:
+
+Import the required Java I/O and utility packages:
+
+java.io.*
+java.util.*
+Step 2:
+
+Define the StudentInfo class as the main class of the program.
+
+Step 3:
+
+Create a Scanner object named sc to accept user input from the console.
+
+Step 4:
+
+Prompt the user to enter the student's name and store it in a String variable.
+
+Step 5:
+
+Prompt the user to enter the student's age and store it in an integer variable.
+
+Step 6:
+
+Prompt the user to enter marks for the following subjects:
+
+Java (javaMarks)
+RDBMS (rdbmsMarks)
+Operating Systems (osMarks)
+Step 7:
+
+Create a BufferedWriter object along with FileWriter to write student details into a file named student_marks.txt.
+
+Step 8:
+
+Write the student's name and age to the file using the write() method.
+
+Step 9:
+
+Write the marks for Java, RDBMS, and Operating Systems in a structured format.
+
+Step 10:
+
+Use a try-with-resources block to automatically close the file after writing.
+
+Step 11:
+
+Create a BufferedReader object along with FileReader to read data from student_marks.txt.
+
+Step 12:
+
+Display the message:
+
+Displaying information from text file:
+Step 13:
+
+Read the contents of the file line by line using:
+
+reader.lines().forEach(System.out::println);
+Step 14:
+
+Display the stored student information on the console.
+
+Step 15:
+
+Close the BufferedReader after reading the file to avoid resource leaks.
+
+Step 16:
+
+End the program after successfully displaying the student details.

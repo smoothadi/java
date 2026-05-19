@@ -1,0 +1,72 @@
+AIM
+
+To write a Java program to handle different mouse events.
+
+ALGORITHM
+Step 1:
+
+Create a Frame object named f with the title "Checking the Mouse Click".
+
+Step 2:
+
+Create a Button object named button with the label "Click me".
+
+Step 3:
+
+Create a Label object named lbl with the initial text "Welcome".
+
+Step 4:
+
+Add a MouseListener to the button using the addMouseListener() method to detect mouse click events.
+
+Step 5:
+
+Override the mouseClicked() method of the MouseAdapter class to define the action performed when the button is clicked.
+
+Step 6:
+
+Inside the mouseClicked() method, check whether the current text of the label (lbl.getText()) is "Welcome":
+
+If true, change the label text to "You have clicked the button."
+Otherwise, change the label text back to "Welcome"
+Step 7:
+
+Add the button to the frame using:
+
+f.add(button, BorderLayout.NORTH);
+
+to display the button at the top of the frame.
+
+Step 8:
+
+Add the label to the frame using:
+
+f.add(lbl, BorderLayout.CENTER);
+
+to display the label at the center of the frame.
+
+Step 9:
+
+Add a WindowListener to the frame to handle window closing events.
+
+Step 10:
+
+Override the windowClosing() method to terminate the program using:
+
+System.exit(0);
+Step 11:
+
+Set the size of the frame to 400 × 400 pixels using:
+
+f.setSize(400, 400);
+Step 12:
+
+Make the frame visible using:
+
+f.setVisible(true);
+
+to display the user interface and start event handling.
+
+Step 13:
+
+End the program when the window is closed.

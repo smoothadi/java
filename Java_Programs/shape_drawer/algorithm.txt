@@ -1,0 +1,67 @@
+AIM
+
+To create a frame with user-specified size and position using command-line arguments and draw different shapes with different colors.
+
+ALGORITHM
+Step 1:
+
+Start the execution from the main() method and check for the required command-line arguments: width, height, x-position, and y-position.
+
+Step 2:
+
+Retrieve and convert the four command-line arguments (width, height, xPos, and yPos) into integers using Integer.parseInt().
+
+Step 3:
+
+Create an object of the ShapeDrawer class by passing the parsed values to initialize the frame size and position.
+
+Step 4:
+
+Set the frame title, size, position, and visibility using the methods:
+
+setTitle()
+setSize()
+setLocation()
+setVisible()
+Step 5:
+
+Create a JMenuBar to hold the menus for shapes and colors.
+
+Step 6:
+
+Create a JMenu for shapes containing menu items such as "Rectangle" and "Circle".
+
+Step 7:
+
+Attach ActionListener objects to the shape menu items to update the selected shape.
+
+Step 8:
+
+Create another JMenu for colors containing menu items such as "Red", "Green", and "Blue".
+
+Step 9:
+
+Attach ActionListener objects to the color menu items to update the selected color using:
+
+Color.RED
+Color.GREEN
+Color.BLUE
+Step 10:
+
+Add the shape and color menus to the JMenuBar and assign the menu bar to the frame using setJMenuBar().
+
+Step 11:
+
+Call the repaint() method whenever the user selects a new shape or color to refresh the window.
+
+Step 12:
+
+Override the paint() method to draw the selected shape (Rectangle or Circle) using the selected color.
+
+Step 13:
+
+Continue running the program and allow the user to change shapes and colors until the window is closed.
+
+Step 14:
+
+End the program.

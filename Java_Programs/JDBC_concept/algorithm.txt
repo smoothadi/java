@@ -1,0 +1,57 @@
+AIM
+
+To write a Java program using JDBC concepts to access a database.
+
+ALGORITHM
+Step 1:
+
+Start the program by defining the main() method.
+
+Step 2:
+
+Define the database URL, username, and password required to connect to the database.
+
+Step 3:
+
+Establish a connection to the database using:
+
+DriverManager.getConnection()
+Step 4:
+
+Create a Statement object from the established database connection.
+
+Step 5:
+
+Write an SQL query to retrieve data from the users table.
+
+Step 6:
+
+Execute the SQL query and store the result in a ResultSet object.
+
+Step 7:
+
+Iterate through the ResultSet using the rs.next() method.
+
+Step 8:
+
+Retrieve the id value from each row of the table.
+
+Step 9:
+
+Retrieve the name value from each row.
+
+Step 10:
+
+Retrieve the email value from each row.
+
+Step 11:
+
+Display the retrieved data on the console.
+
+Step 12:
+
+Handle exceptions using try-catch blocks and automatically close resources using the try-with-resources statement.
+
+Step 13:
+
+End the program after successfully retrieving and displaying the database records.

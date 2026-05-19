@@ -1,0 +1,6 @@
+Name: suba
+Age: 8
+Marks:
+Java: 90
+RDBMS: 90
+OS:89

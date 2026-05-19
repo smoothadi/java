@@ -1,0 +1,86 @@
+AIM
+
+To implement a Remote Method Invocation (RMI) system in Java that allows a client to remotely invoke a method on a server object and receive a response.
+
+ALGORITHM
+Step 1:
+
+Create an interface named MyRemote that extends the java.rmi.Remote interface.
+
+Step 2:
+
+Declare a method named sayHello() in the MyRemote interface and specify that it throws RemoteException.
+
+Step 3:
+
+Create a class named MyRemoteImpl that implements the MyRemote interface.
+
+Step 4:
+
+Extend the UnicastRemoteObject class in MyRemoteImpl to make the object remotely accessible.
+
+Step 5:
+
+Provide the implementation for the sayHello() method in the MyRemoteImpl class.
+
+Step 6:
+
+Create a class named MyRMIServer to host the remote object.
+
+Step 7:
+
+Instantiate the MyRemoteImpl object inside the server class.
+
+Step 8:
+
+Start the RMI registry on port 2000 using:
+
+LocateRegistry.createRegistry(2000);
+Step 9:
+
+Bind the remote object to a name in the RMI registry using:
+
+Naming.rebind()
+Step 10:
+
+Display a message indicating that the RMI server is ready.
+
+Step 11:
+
+Create a class named MyRMIClient to act as the client application.
+
+Step 12:
+
+Use:
+
+Naming.lookup()
+
+to obtain the remote object reference from the RMI registry.
+
+Step 13:
+
+Invoke the sayHello() method on the remote object from the client.
+
+Step 14:
+
+Receive the response returned by the server.
+
+Step 15:
+
+Display the response message on the client console.
+
+Step 16:
+
+Handle RemoteException and other exceptions in both the server and client programs using try-catch blocks.
+
+Step 17:
+
+Compile all Java source files using the javac compiler.
+
+Step 18:
+
+Run the RMI server and client using java commands while ensuring that the RMI registry is active.
+
+Step 19:
+
+End the program after successful remote communication between the client and server.

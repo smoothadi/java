@@ -1,0 +1,64 @@
+AIM
+
+To write a Java program to create a system that stores and displays employee information.
+
+ALGORITHM
+Step 1:
+
+Start the program and create a class named Employee to store employee details.
+
+Step 2:
+
+Declare two private variables:
+
+empNumber of type integer
+basicPay of type double
+Step 3:
+
+Create a constructor for the Employee class that accepts an integer parameter empNumber and initializes the employee number.
+
+Step 4:
+
+Create the setBasicPay() method to assign the employee's basic pay.
+
+Step 5:
+
+Create the displayEmployeeDetails() method to display the employee number and basic pay.
+
+Step 6:
+
+Define a class named EmployeeMain containing the main() method.
+
+Step 7:
+
+Import the required classes:
+
+Import the Scanner class to accept user input.
+Import the Employee class from the employee package.
+Step 8:
+
+Create a Scanner object in the main() method to read user input.
+
+Step 9:
+
+Read the employee number from the user as an integer using the Scanner object.
+
+Step 10:
+
+Read the basic pay from the user as a double using the Scanner object.
+
+Step 11:
+
+Create an Employee object and use the setBasicPay() method to assign the entered basic pay.
+
+Step 12:
+
+Call the displayEmployeeDetails() method to display the employee number and basic pay.
+
+Step 13:
+
+Close the Scanner object to release system resources.
+
+Step 14:
+
+End the program.

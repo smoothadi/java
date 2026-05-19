@@ -1,0 +1,71 @@
+AIM
+
+To write a Java Bean program to view an image.
+
+ALGORITHM
+Step 1:
+
+Start the program execution.
+
+Step 2:
+
+Create a class named ImageViewerBean with a private field of type BufferedImage named image.
+
+Step 3:
+
+Define a method named loadImage(String filePath) to load an image from the specified file path.
+
+Step 4:
+
+Load the image using:
+
+ImageIO.read(new File(filePath))
+
+and store it in the image variable.
+
+Step 5:
+
+Handle any IOException that may occur during the image loading process using a try-catch block.
+
+Step 6:
+
+Define a method named displayImage() to display the loaded image.
+
+Step 7:
+
+Check whether the image object is not null.
+
+Step 8:
+
+Create a JFrame object with the title "Image Viewer".
+
+Step 9:
+
+Set the default close operation of the frame to:
+
+EXIT_ON_CLOSE
+Step 10:
+
+Set the size of the frame to 600 × 600 pixels.
+
+Step 11:
+
+Add a custom JPanel that overrides the paintComponent() method and draw the image using:
+
+g.drawImage(image, 0, 0, null);
+Step 12:
+
+Display the frame using setVisible(true) to show the image.
+If no image is loaded, display the message:
+
+No image loaded.
+Step 13:
+
+Inside the main() method:
+
+Create an object of ImageViewerBean
+Load the image using loadImage()
+Display the image using displayImage()
+Step 14:
+
+End the program execution.

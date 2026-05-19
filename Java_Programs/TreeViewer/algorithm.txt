@@ -1,0 +1,79 @@
+AIM
+
+To create a Java program to implement a Tree Viewer using Swing components.
+
+ALGORITHM
+Step 1:
+
+Start the program execution.
+
+Step 2:
+
+Import the required libraries from the javax.swing and javax.swing.tree packages.
+
+Step 3:
+
+Define a class named TreeViewer.
+
+Step 4:
+
+Inside the TreeViewer class, define the main() method as the entry point of the program.
+
+Step 5:
+
+Create a JFrame object to serve as the main application window and set its title to "Tree Viewer".
+
+Step 6:
+
+Set the default close operation of the JFrame to:
+
+EXIT_ON_CLOSE
+
+so that the application terminates when the window is closed.
+
+Step 7:
+
+Set the size of the JFrame to an appropriate width and height, such as 400 × 300 pixels.
+
+Step 8:
+
+Create a DefaultMutableTreeNode object to represent the root node of the tree and initialize it with the label "Root".
+
+Step 9:
+
+Create additional DefaultMutableTreeNode objects for child nodes such as:
+
+"Child 1"
+"Child 2"
+"Child 3"
+
+and add them to the root node.
+
+Step 10:
+
+Create sub-child nodes such as:
+
+"Sub Child 1"
+"Sub Child 2"
+
+and add them to one of the child nodes (for example, "Child 1").
+
+Step 11:
+
+Create a JTree object using the root node to visually represent the hierarchical structure.
+
+Step 12:
+
+Create a JScrollPane, add the JTree to it, and then add the JScrollPane to the JFrame.
+
+Step 13:
+
+Set the frame visibility to true using:
+
+setVisible(true);
+
+to display the Tree Viewer window.
+
+Step 14:
+
+End the program when the application window is closed.

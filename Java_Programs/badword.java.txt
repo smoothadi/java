@@ -1,0 +1,79 @@
+import java.io.*;
+
+public class textfiles
+
+{
+
+private static final String[] badWords = {"dog", "monkey".
+
+"donkey"}; public static void main(String[] args) {
+
+String filePath =
+
+"god.txt"; if
+
+(isFileSafe(filePath)) {
+
+readFile(filePath);
+
+} else {
+
+System.out.println("The file contains prohibited words and cannot be re
+
+}
+
+}
+
+private static boolean isFileSafe(String filePath) {
+
+try (BufferedReader reader = new BufferedReader(new
+
+FileReader(filePath))) {
+
+String line;
+
+while ((line = reader.readLine()) != null)
+
+{ for (String bad Word: bad Words) {
+
+if (line.toLowerCase().contains(bad Word.toLowerCase())) {
+
+return false; // Return false if any bad word is found
+
+}
+
+}
+
+}
+
+return true; // File is safe if no bad words are found} catch (IOException e) {
+
+System.out.println("Error reading the file: " +
+
+e.getMessage()); return false;
+
+}
+
+}
+
+private static void readFile(String filePath) {
+
+try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+String line;
+
+while ((line = reader.readLine()) != null) {
+
+System.out.println(line);
+
+}
+
+} catch (IOException e) {
+
+System.out.println("Error reading the file: " + e.getMessage())=
+
+}
+
+}
+
+}

@@ -1,0 +1,60 @@
+AIM
+
+The aim of this program is to demonstrate inner classes, polymorphism through method overriding, and object instantiation in Java.
+
+ALGORITHM
+Step 1:
+
+Define a class named Shape.
+
+Step 2:
+
+Create a method named area() in the Shape class that returns 0.
+
+Step 3:
+
+Define a class named Square that extends the Shape class.
+
+Step 4:
+
+Create a constructor in the Square class to initialize the side length.
+
+Step 5:
+
+Override the area() method in the Square class to calculate and return the area of the square.
+
+Step 6:
+
+Define a class named Rectangle that extends the Shape class.
+
+Step 7:
+
+Create a constructor in the Rectangle class to initialize the length and width.
+
+Step 8:
+
+Override the area() method in the Rectangle class to calculate and return the area of the rectangle.
+
+Step 9:
+
+Define a class named AreaCalculator.
+
+Step 10:
+
+Create an inner class named AreaDisplay inside AreaCalculator with a method show(Shape shape) to display the shape type and its area.
+
+Step 11:
+
+Create another inner class named AreaCalculatorInner inside AreaCalculator with a method calculate(Shape shape) to calculate and return the area.
+
+Step 12:
+
+In the Main class, create objects of AreaCalculator, Square, and Rectangle.
+
+Step 13:
+
+Use the AreaDisplay class to display the areas of the Square and Rectangle objects.
+
+Step 14:
+
+End the program.
