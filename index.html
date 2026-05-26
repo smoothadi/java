@@ -1,1885 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Java Lab Programs – R2023</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;600;700;800&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Lab Programs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
 
-  :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --card: #161d2e;
-    --border: #1e2d45;
-    --accent: #00d4ff;
-    --accent2: #7c3aed;
-    --accent3: #10b981;
-    --accent4: #f59e0b;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --keyword: #c792ea;
-    --string: #c3e88d;
-    --comment: #546e7a;
-    --number: #f78c6c;
-    --type: #82aaff;
-    --func: #82aaff;
-    --method: #ffcb6b;
-  }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        .program {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-  }
+        h2 {
+            color: #0066cc;
+        }
 
-  /* HEADER */
-  header {
-    background: linear-gradient(135deg, #0d1b2a 0%, #1a0533 50%, #0a1628 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 3rem 2rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(0,212,255,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 50%, rgba(124,58,237,0.08) 0%, transparent 60%);
-  }
-  .header-badge {
-    display: inline-block;
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.3);
-    color: var(--accent);
-    font-size: 0.7rem;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 0.35rem 1rem;
-    border-radius: 2px;
-    margin-bottom: 1rem;
-  }
-  header h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    background: linear-gradient(135deg, #00d4ff, #7c3aed, #10b981);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
-    position: relative;
-  }
-  header p {
-    color: var(--muted);
-    font-size: 0.95rem;
-    font-family: 'JetBrains Mono', monospace;
-    position: relative;
-  }
-
-  /* NAV */
-  nav {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  nav::-webkit-scrollbar { display: none; }
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.75rem;
-    font-family: 'JetBrains Mono', monospace;
-    padding: 1rem 0.9rem;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-  nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
-  /* LAYOUT */
-  main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
-
-  /* PROGRAM SECTION */
-  .program {
-    margin-bottom: 3.5rem;
-    scroll-margin-top: 60px;
-  }
-  .program-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .prog-num {
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    color: white;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 700;
-    font-size: 0.8rem;
-    min-width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .program-header h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .program-header .tag {
-    margin-left: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--accent3);
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.25);
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 2px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-bottom: none;
-    border-radius: 6px 6px 0 0;
-    padding: 0.4rem 0.4rem 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px 4px 0 0;
-    white-space: nowrap;
-    transition: all 0.2s;
-    border-bottom: 2px solid transparent;
-  }
-  .tab-btn:hover { color: var(--text); background: var(--surface); }
-  .tab-btn.active { color: var(--accent); background: var(--card); border-bottom-color: var(--accent); }
-
-  /* CODE BLOCK */
-  .code-wrap {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 0 6px 6px 6px;
-    overflow: hidden;
-  }
-  .code-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid var(--border);
-  }
-  .code-toolbar span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
-  }
-  .copy-btn {
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.2);
-    color: var(--accent);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    padding: 0.25rem 0.7rem;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .copy-btn:hover { background: rgba(0,212,255,0.2); }
-
-  .code-panel { display: none; }
-  .code-panel.active { display: block; }
-
-  pre {
-    padding: 1.5rem;
-    overflow-x: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    line-height: 1.8;
-    counter-reset: line;
-  }
-  pre code { display: block; }
-
-  /* Syntax highlighting */
-  .kw { color: var(--keyword); font-weight: 600; }
-  .ty { color: var(--type); }
-  .fn { color: var(--method); }
-  .st { color: var(--string); }
-  .cm { color: var(--comment); font-style: italic; }
-  .nm { color: var(--number); }
-  .pk { color: var(--accent3); }
-
-  /* OUTPUT */
-  .output {
-    background: #020b14;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    margin-top: 1rem;
-    overflow: hidden;
-  }
-  .output-header {
-    background: rgba(16,185,129,0.08);
-    border-bottom: 1px solid rgba(16,185,129,0.15);
-    padding: 0.4rem 1rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--accent3);
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .output-header::before { content: '▶'; font-size: 0.5rem; }
-  .output pre {
-    padding: 1rem 1.5rem;
-    font-size: 0.75rem;
-    color: var(--accent3);
-    line-height: 1.7;
-  }
-
-  /* DIVIDER */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 3rem 0;
-  }
-
-  .hidden { display: none; }
-</style>
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="header-badge">· Java Lab</div>
-  <h1>Enna pulla Bit ahh</h1>
-  <p>// Complete reference — all 12 programs with source code &amp; output</p>
-</header>
-
-<nav>
-  <a href="#p1">01 · Inheritance</a>
-  <a href="#p2">02 · GUI Apps</a>
-  <a href="#p3">03 · Threads</a>
-  <a href="#p4">04 · Swing PIS</a>
-  <a href="#p5">05 · Event Handling</a>
-  <a href="#p6">06 · File I/O</a>
-  <a href="#p7">07 · RMI</a>
-  <a href="#p8">08 · Servlet + DB</a>
-  <a href="#p9">09 · Java Bean</a>
-  <a href="#p10">10 · HashMap</a>
-  <a href="#p11">11 · Set / Email</a>
-  <a href="#p12">12 · FTP Sockets</a>
-</nav>
-
-<main>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     PROGRAM 1 – Inheritance, this, Polymorphism, Package, Exception
-     ═══════════════════════════════════════════════════════════════ -->
-<section class="program" id="p1">
-  <div class="program-header">
-    <div class="prog-num">01</div>
-    <h2>Inheritance · this Keyword · Polymorphism · Packages · Exceptions</h2>
-    <span class="tag">OOP Fundamentals</span>
-  </div>
-
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p1','inh')">Inheritance Types</button>
-    <button class="tab-btn" onclick="switchTab(this,'p1','ths')">this Keyword</button>
-    <button class="tab-btn" onclick="switchTab(this,'p1','pol')">Polymorphism</button>
-    <button class="tab-btn" onclick="switchTab(this,'p1','pkg')">Package</button>
-    <button class="tab-btn" onclick="switchTab(this,'p1','exc')">Exception</button>
-  </div>
-
-  <div class="code-wrap">
-    <div class="code-toolbar">
-      <span id="p1-label">Inheritance.java</span>
-      <button class="copy-btn" onclick="copyCode('p1-active')">copy</button>
-    </div>
-
-    <!-- INHERITANCE -->
-    <div class="code-panel active" id="p1-inh">
-<pre><code><span class="cm">// ── Single Inheritance ──────────────────────────────────────────</span>
-<span class="kw">class</span> <span class="ty">Animal</span> {
-    <span class="ty">String</span> name;
-    <span class="kw">void</span> <span class="fn">eat</span>() { System.out.println(name + <span class="st">" is eating"</span>); }
-}
-<span class="kw">class</span> <span class="ty">Dog</span> <span class="kw">extends</span> <span class="ty">Animal</span> {
-    <span class="kw">void</span> <span class="fn">bark</span>() { System.out.println(name + <span class="st">" barks!"</span>); }
-}
-
-<span class="cm">// ── Multilevel Inheritance ───────────────────────────────────────</span>
-<span class="kw">class</span> <span class="ty">Vehicle</span> {
-    <span class="kw">void</span> <span class="fn">start</span>() { System.out.println(<span class="st">"Vehicle starts"</span>); }
-}
-<span class="kw">class</span> <span class="ty">Car</span> <span class="kw">extends</span> <span class="ty">Vehicle</span> {
-    <span class="kw">void</span> <span class="fn">drive</span>() { System.out.println(<span class="st">"Car drives"</span>); }
-}
-<span class="kw">class</span> <span class="ty">ElectricCar</span> <span class="kw">extends</span> <span class="ty">Car</span> {
-    <span class="kw">void</span> <span class="fn">charge</span>() { System.out.println(<span class="st">"Electric car charges"</span>); }
-}
-
-<span class="cm">// ── Hierarchical Inheritance ─────────────────────────────────────</span>
-<span class="kw">class</span> <span class="ty">Shape</span> {
-    <span class="kw">void</span> <span class="fn">draw</span>() { System.out.println(<span class="st">"Drawing shape"</span>); }
-}
-<span class="kw">class</span> <span class="ty">Circle</span> <span class="kw">extends</span> <span class="ty">Shape</span> {
-    <span class="kw">void</span> <span class="fn">draw</span>() { System.out.println(<span class="st">"Drawing circle"</span>); }
-}
-<span class="kw">class</span> <span class="ty">Rectangle</span> <span class="kw">extends</span> <span class="ty">Shape</span> {
-    <span class="kw">void</span> <span class="fn">draw</span>() { System.out.println(<span class="st">"Drawing rectangle"</span>); }
-}
-
-<span class="cm">// ── Interface-based Multiple Inheritance ─────────────────────────</span>
-<span class="kw">interface</span> <span class="ty">Flyable</span>  { <span class="kw">void</span> <span class="fn">fly</span>();  }
-<span class="kw">interface</span> <span class="ty">Swimmable</span> { <span class="kw">void</span> <span class="fn">swim</span>(); }
-
-<span class="kw">class</span> <span class="ty">Duck</span> <span class="kw">implements</span> <span class="ty">Flyable</span>, <span class="ty">Swimmable</span> {
-    <span class="kw">public void</span> <span class="fn">fly</span>()  { System.out.println(<span class="st">"Duck flies"</span>);  }
-    <span class="kw">public void</span> <span class="fn">swim</span>() { System.out.println(<span class="st">"Duck swims"</span>); }
-}
-
-<span class="cm">// ── Hybrid Inheritance ───────────────────────────────────────────</span>
-<span class="kw">interface</span> <span class="ty">Printable</span>  { <span class="kw">void</span> <span class="fn">print</span>();  }
-<span class="kw">interface</span> <span class="ty">Scannable</span>  { <span class="kw">void</span> <span class="fn">scan</span>();   }
-<span class="kw">class</span>     <span class="ty">Device</span>      { <span class="kw">void</span> <span class="fn">power</span>()  { System.out.println(<span class="st">"Device ON"</span>); } }
-
-<span class="kw">class</span> <span class="ty">AllInOne</span> <span class="kw">extends</span> <span class="ty">Device</span> <span class="kw">implements</span> <span class="ty">Printable</span>, <span class="ty">Scannable</span> {
-    <span class="kw">public void</span> <span class="fn">print</span>() { System.out.println(<span class="st">"Printing..."</span>); }
-    <span class="kw">public void</span> <span class="fn">scan</span>()  { System.out.println(<span class="st">"Scanning..."</span>); }
-}
-
-<span class="kw">public class</span> <span class="ty">InheritanceDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="cm">// Single</span>
-        <span class="ty">Dog</span> d = <span class="kw">new</span> <span class="ty">Dog</span>(); d.name = <span class="st">"Rex"</span>; d.eat(); d.bark();
-        <span class="cm">// Multilevel</span>
-        <span class="ty">ElectricCar</span> e = <span class="kw">new</span> <span class="ty">ElectricCar</span>(); e.start(); e.drive(); e.charge();
-        <span class="cm">// Hierarchical</span>
-        <span class="ty">Shape</span>[] shapes = { <span class="kw">new</span> <span class="ty">Circle</span>(), <span class="kw">new</span> <span class="ty">Rectangle</span>() };
-        <span class="kw">for</span> (<span class="ty">Shape</span> s : shapes) s.draw();
-        <span class="cm">// Multiple via interface</span>
-        <span class="ty">Duck</span> duck = <span class="kw">new</span> <span class="ty">Duck</span>(); duck.fly(); duck.swim();
-        <span class="cm">// Hybrid</span>
-        <span class="ty">AllInOne</span> aio = <span class="kw">new</span> <span class="ty">AllInOne</span>(); aio.power(); aio.print(); aio.scan();
-    }
-}</code></pre>
-    </div>
-
-    <!-- THIS KEYWORD -->
-    <div class="code-panel hidden" id="p1-ths">
-<pre><code><span class="kw">class</span> <span class="ty">Student</span> {
-    <span class="ty">String</span> name;
-    <span class="ty">int</span>    rollNo;
-    <span class="ty">double</span> marks;
-
-    <span class="cm">// 1. this to resolve field/parameter name conflict</span>
-    <span class="ty">Student</span>(<span class="ty">String</span> name, <span class="ty">int</span> rollNo, <span class="ty">double</span> marks) {
-        <span class="kw">this</span>.name   = name;
-        <span class="kw">this</span>.rollNo = rollNo;
-        <span class="kw">this</span>.marks  = marks;
-    }
-
-    <span class="cm">// 2. this() – constructor chaining</span>
-    <span class="ty">Student</span>(<span class="ty">String</span> name) {
-        <span class="kw">this</span>(name, <span class="nm">0</span>, <span class="nm">0.0</span>);   <span class="cm">// calls 3-arg constructor</span>
-    }
-
-    <span class="cm">// 3. this as method argument</span>
-    <span class="kw">void</span> <span class="fn">register</span>(<span class="ty">Database</span> db) { db.add(<span class="kw">this</span>); }
-
-    <span class="cm">// 4. this returned from a method (fluent builder)</span>
-    <span class="ty">Student</span> <span class="fn">setName</span>(<span class="ty">String</span> name)   { <span class="kw">this</span>.name = name;   <span class="kw">return this</span>; }
-    <span class="ty">Student</span> <span class="fn">setMarks</span>(<span class="ty">double</span> marks) { <span class="kw">this</span>.marks = marks; <span class="kw">return this</span>; }
-
-    <span class="kw">void</span> <span class="fn">display</span>() {
-        System.out.printf(<span class="st">"Name: %-15s Roll: %3d  Marks: %.1f%n"</span>,
-                          name, rollNo, marks);
-    }
-}
-
-<span class="kw">class</span> <span class="ty">Database</span> {
-    <span class="kw">void</span> <span class="fn">add</span>(<span class="ty">Student</span> s) {
-        System.out.println(<span class="st">"Registered: "</span> + s.name);
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">ThisKeywordDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="ty">Student</span> s1 = <span class="kw">new</span> <span class="ty">Student</span>(<span class="st">"Alice"</span>, <span class="nm">101</span>, <span class="nm">95.5</span>);
-        <span class="ty">Student</span> s2 = <span class="kw">new</span> <span class="ty">Student</span>(<span class="st">"Bob"</span>);    <span class="cm">// chained</span>
-        s1.display();
-        s2.display();
-
-        <span class="cm">// Fluent chaining using returned this</span>
-        <span class="kw">new</span> <span class="ty">Student</span>(<span class="st">"Temp"</span>).<span class="fn">setName</span>(<span class="st">"Carol"</span>).<span class="fn">setMarks</span>(<span class="nm">88.0</span>).display();
-
-        <span class="ty">Database</span> db = <span class="kw">new</span> <span class="ty">Database</span>();
-        s1.register(db);
-    }
-}</code></pre>
-    </div>
-
-    <!-- POLYMORPHISM -->
-    <div class="code-panel hidden" id="p1-pol">
-<pre><code><span class="cm">// ── Compile-time Polymorphism (Method Overloading) ───────────────</span>
-<span class="kw">class</span> <span class="ty">Calculator</span> {
-    <span class="kw">int</span>    <span class="fn">add</span>(<span class="kw">int</span> a, <span class="kw">int</span> b)             { <span class="kw">return</span> a + b; }
-    <span class="kw">double</span> <span class="fn">add</span>(<span class="kw">double</span> a, <span class="kw">double</span> b)       { <span class="kw">return</span> a + b; }
-    <span class="kw">int</span>    <span class="fn">add</span>(<span class="kw">int</span> a, <span class="kw">int</span> b, <span class="kw">int</span> c)      { <span class="kw">return</span> a + b + c; }
-    <span class="ty">String</span> <span class="fn">add</span>(<span class="ty">String</span> a, <span class="ty">String</span> b)       { <span class="kw">return</span> a + b; }
-}
-
-<span class="cm">// ── Runtime Polymorphism (Method Overriding) ─────────────────────</span>
-<span class="kw">abstract class</span> <span class="ty">BankAccount</span> {
-    <span class="ty">String</span> owner;
-    <span class="kw">double</span> balance;
-    <span class="ty">BankAccount</span>(<span class="ty">String</span> o, <span class="kw">double</span> b) { owner = o; balance = b; }
-    <span class="kw">abstract double</span> <span class="fn">calcInterest</span>();
-    <span class="kw">void</span> <span class="fn">showDetails</span>() {
-        System.out.printf(<span class="st">"%-10s Balance: %8.2f  Interest: %6.2f%n"</span>,
-                          owner, balance, <span class="fn">calcInterest</span>());
-    }
-}
-<span class="kw">class</span> <span class="ty">SavingsAccount</span> <span class="kw">extends</span> <span class="ty">BankAccount</span> {
-    <span class="ty">SavingsAccount</span>(<span class="ty">String</span> o, <span class="kw">double</span> b) { <span class="kw">super</span>(o, b); }
-    <span class="kw">public double</span> <span class="fn">calcInterest</span>() { <span class="kw">return</span> balance * <span class="nm">0.04</span>; }
-}
-<span class="kw">class</span> <span class="ty">CurrentAccount</span> <span class="kw">extends</span> <span class="ty">BankAccount</span> {
-    <span class="ty">CurrentAccount</span>(<span class="ty">String</span> o, <span class="kw">double</span> b) { <span class="kw">super</span>(o, b); }
-    <span class="kw">public double</span> <span class="fn">calcInterest</span>() { <span class="kw">return</span> balance * <span class="nm">0.02</span>; }
-}
-<span class="kw">class</span> <span class="ty">FDAccount</span> <span class="kw">extends</span> <span class="ty">BankAccount</span> {
-    <span class="ty">FDAccount</span>(<span class="ty">String</span> o, <span class="kw">double</span> b) { <span class="kw">super</span>(o, b); }
-    <span class="kw">public double</span> <span class="fn">calcInterest</span>() { <span class="kw">return</span> balance * <span class="nm">0.07</span>; }
-}
-
-<span class="kw">public class</span> <span class="ty">PolymorphismDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="ty">Calculator</span> c = <span class="kw">new</span> <span class="ty">Calculator</span>();
-        System.out.println(<span class="st">"int add    : "</span> + c.add(<span class="nm">10</span>, <span class="nm">20</span>));
-        System.out.println(<span class="st">"double add : "</span> + c.add(<span class="nm">3.14</span>, <span class="nm">2.86</span>));
-        System.out.println(<span class="st">"3-arg add  : "</span> + c.add(<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>));
-        System.out.println(<span class="st">"String add : "</span> + c.add(<span class="st">"Hello, "</span>,<span class="st">"World!"</span>));
-
-        <span class="ty">BankAccount</span>[] accounts = {
-            <span class="kw">new</span> <span class="ty">SavingsAccount</span>(<span class="st">"Alice"</span>, <span class="nm">50000</span>),
-            <span class="kw">new</span> <span class="ty">CurrentAccount</span>(<span class="st">"Bob"</span>,   <span class="nm">80000</span>),
-            <span class="kw">new</span> <span class="ty">FDAccount</span>     (<span class="st">"Carol"</span>, <span class="nm">100000</span>)
-        };
-        System.out.println(<span class="st">"\n--- Bank Statement ---"</span>);
-        <span class="kw">for</span> (<span class="ty">BankAccount</span> a : accounts) a.showDetails();
-    }
-}</code></pre>
-    </div>
-
-    <!-- PACKAGE -->
-    <div class="code-panel hidden" id="p1-pkg">
-<pre><code><span class="cm">// File: mypack/MathUtils.java</span>
-<span class="kw">package</span> <span class="pk">mypack</span>;
-
-<span class="kw">public class</span> <span class="ty">MathUtils</span> {
-    <span class="kw">public static int</span> <span class="fn">factorial</span>(<span class="kw">int</span> n) {
-        <span class="kw">if</span> (n &lt;= <span class="nm">1</span>) <span class="kw">return</span> <span class="nm">1</span>;
-        <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="nm">1</span>);
-    }
-    <span class="kw">public static boolean</span> <span class="fn">isPrime</span>(<span class="kw">int</span> n) {
-        <span class="kw">if</span> (n &lt; <span class="nm">2</span>) <span class="kw">return false</span>;
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">2</span>; i * i &lt;= n; i++)
-            <span class="kw">if</span> (n % i == <span class="nm">0</span>) <span class="kw">return false</span>;
-        <span class="kw">return true</span>;
-    }
-}
-
-<span class="cm">// ────────────────────────────────────────────────────────────────
-// File: mypack/StringUtils.java</span>
-<span class="kw">package</span> <span class="pk">mypack</span>;
-
-<span class="kw">public class</span> <span class="ty">StringUtils</span> {
-    <span class="kw">public static</span> <span class="ty">String</span> <span class="fn">reverse</span>(<span class="ty">String</span> s) {
-        <span class="kw">return new</span> <span class="ty">StringBuilder</span>(s).reverse().toString();
-    }
-    <span class="kw">public static boolean</span> <span class="fn">isPalindrome</span>(<span class="ty">String</span> s) {
-        <span class="ty">String</span> rev = <span class="fn">reverse</span>(s);
-        <span class="kw">return</span> s.equalsIgnoreCase(rev);
-    }
-}
-
-<span class="cm">// ────────────────────────────────────────────────────────────────
-// File: PackageDemo.java  (in default / another package)</span>
-<span class="kw">import</span> <span class="pk">mypack</span>.MathUtils;
-<span class="kw">import</span> <span class="pk">mypack</span>.StringUtils;
-
-<span class="kw">public class</span> <span class="ty">PackageDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        System.out.println(<span class="st">"5! = "</span>  + <span class="ty">MathUtils</span>.factorial(<span class="nm">5</span>));
-        System.out.println(<span class="st">"17 prime? "</span> + <span class="ty">MathUtils</span>.isPrime(<span class="nm">17</span>));
-        System.out.println(<span class="ty">StringUtils</span>.reverse(<span class="st">"Java"</span>));
-        System.out.println(<span class="st">"racecar palindrome? "</span> + <span class="ty">StringUtils</span>.isPalindrome(<span class="st">"racecar"</span>));
-    }
-}
-<span class="cm">/* Compile:  javac mypack/MathUtils.java mypack/StringUtils.java PackageDemo.java
-   Run:      java PackageDemo  */</span></code></pre>
-    </div>
-
-    <!-- EXCEPTION -->
-    <div class="code-panel hidden" id="p1-exc">
-<pre><code><span class="cm">// ── User-defined Exception classes ───────────────────────────────</span>
-<span class="kw">class</span> <span class="ty">InsufficientFundsException</span> <span class="kw">extends</span> <span class="ty">Exception</span> {
-    <span class="kw">private double</span> amount;
-    <span class="ty">InsufficientFundsException</span>(<span class="kw">double</span> amount) {
-        <span class="kw">super</span>(<span class="st">"Insufficient funds! Short by: ₹"</span> + amount);
-        <span class="kw">this</span>.amount = amount;
-    }
-    <span class="kw">double</span> <span class="fn">getShortfall</span>() { <span class="kw">return</span> amount; }
-}
-
-<span class="kw">class</span> <span class="ty">InvalidAgeException</span> <span class="kw">extends</span> <span class="ty">RuntimeException</span> {
-    <span class="ty">InvalidAgeException</span>(<span class="kw">int</span> age) {
-        <span class="kw">super</span>(<span class="st">"Invalid age: "</span> + age + <span class="st">". Must be 18–120."</span>);
-    }
-}
-
-<span class="cm">// ── Bank class using checked exception ───────────────────────────</span>
-<span class="kw">class</span> <span class="ty">BankAccount</span> {
-    <span class="kw">private double</span> balance;
-    <span class="ty">BankAccount</span>(<span class="kw">double</span> initial) { balance = initial; }
-
-    <span class="kw">void</span> <span class="fn">withdraw</span>(<span class="kw">double</span> amount) <span class="kw">throws</span> <span class="ty">InsufficientFundsException</span> {
-        <span class="kw">if</span> (amount > balance)
-            <span class="kw">throw new</span> <span class="ty">InsufficientFundsException</span>(amount - balance);
-        balance -= amount;
-        System.out.printf(<span class="st">"Withdrew ₹%.2f | Balance: ₹%.2f%n"</span>, amount, balance);
-    }
-}
-
-<span class="cm">// ── Person class using unchecked exception ────────────────────────</span>
-<span class="kw">class</span> <span class="ty">Person</span> {
-    <span class="kw">void</span> <span class="fn">setAge</span>(<span class="kw">int</span> age) {
-        <span class="kw">if</span> (age &lt; <span class="nm">18</span> || age > <span class="nm">120</span>) <span class="kw">throw new</span> <span class="ty">InvalidAgeException</span>(age);
-        System.out.println(<span class="st">"Age set: "</span> + age);
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">ExceptionDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="cm">// Checked exception</span>
-        <span class="ty">BankAccount</span> acc = <span class="kw">new</span> <span class="ty">BankAccount</span>(<span class="nm">5000</span>);
-        <span class="kw">try</span> {
-            acc.withdraw(<span class="nm">2000</span>);
-            acc.withdraw(<span class="nm">4000</span>);  <span class="cm">// will throw</span>
-        } <span class="kw">catch</span> (<span class="ty">InsufficientFundsException</span> e) {
-            System.out.println(<span class="st">"CAUGHT: "</span> + e.getMessage());
-            System.out.println(<span class="st">"Shortfall: ₹"</span> + e.getShortfall());
-        } <span class="kw">finally</span> {
-            System.out.println(<span class="st">"Transaction attempt done."</span>);
-        }
-        <span class="cm">// Unchecked exception</span>
-        <span class="ty">Person</span> p = <span class="kw">new</span> <span class="ty">Person</span>();
-        <span class="kw">try</span> {
-            p.setAge(<span class="nm">25</span>);
-            p.setAge(<span class="nm">-5</span>);
-        } <span class="kw">catch</span> (<span class="ty">InvalidAgeException</span> e) {
-            System.out.println(<span class="st">"CAUGHT: "</span> + e.getMessage());
-        }
-    }
-}</code></pre>
-    </div>
-  </div>
-
-  <div class="output">
-    <div class="output-header">Sample Output</div>
-    <pre>Rex is eating | Rex barks! | Vehicle starts | Car drives | ...
-5! = 120 | 17 prime? true | avaJ | racecar palindrome? true
-Withdrew ₹2000.00 | Balance: ₹3000.00
-CAUGHT: Insufficient funds! Short by: ₹1000.0
-Age set: 25 | CAUGHT: Invalid age: -5. Must be 18–120.</pre>
-  </div>
-</section><hr class="divider">
-
-<!-- ═══════════════════════════════════════════════════════════════
-     PROGRAM 2 – GUI: Calculator + F-to-C Converter
-     ═══════════════════════════════════════════════════════════════ -->
-<section class="program" id="p2">
-  <div class="program-header">
-    <div class="prog-num">02</div>
-    <h2>Window-based GUI – Calculator &amp; Fahrenheit↔Celsius</h2>
-    <span class="tag">Swing / AWT</span>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p2','calc')">Calculator</button>
-    <button class="tab-btn" onclick="switchTab(this,'p2','conv')">F↔C Converter</button>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span id="p2-label">Calculator.java</span><button class="copy-btn" onclick="copyCode('p2-active')">copy</button></div>
-
-    <div class="code-panel active" id="p2-calc">
-<pre><code><span class="kw">import</span> javax.swing.*;
-<span class="kw">import</span> java.awt.*;
-<span class="kw">import</span> java.awt.event.*;
-
-<span class="kw">public class</span> <span class="ty">Calculator</span> <span class="kw">extends</span> <span class="ty">JFrame</span> <span class="kw">implements</span> <span class="ty">ActionListener</span> {
-
-    <span class="kw">private</span> <span class="ty">JTextField</span> display = <span class="kw">new</span> <span class="ty">JTextField</span>(<span class="st">"0"</span>);
-    <span class="kw">private double</span> num1, num2, result;
-    <span class="kw">private char</span>   op;
-    <span class="kw">private boolean</span> start = <span class="kw">true</span>;
-
-    <span class="kw">private final</span> <span class="ty">String</span>[][] KEYS = {
-        {<span class="st">"C"</span>,  <span class="st">"±"</span>, <span class="st">"%"</span>, <span class="st">"÷"</span>},
-        {<span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"×"</span>},
-        {<span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"−"</span>},
-        {<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"+"</span>},
-        {<span class="st">"0"</span>, <span class="st">"."</span>, <span class="st">"="</span>, <span class="st">"="</span>}
-    };
-
-    <span class="ty">Calculator</span>() {
-        setTitle(<span class="st">"Calculator"</span>);
-        setDefaultCloseOperation(<span class="ty">EXIT_ON_CLOSE</span>);
-        setLayout(<span class="kw">new</span> <span class="ty">BorderLayout</span>(<span class="nm">5</span>, <span class="nm">5</span>));
-
-        display.setFont(<span class="kw">new</span> <span class="ty">Font</span>(<span class="st">"SansSerif"</span>, <span class="ty">Font.BOLD</span>, <span class="nm">28</span>));
-        display.setHorizontalAlignment(<span class="ty">JTextField.RIGHT</span>);
-        display.setEditable(<span class="kw">false</span>);
-        display.setBackground(<span class="ty">Color.BLACK</span>);
-        display.setForeground(<span class="ty">Color.WHITE</span>);
-        add(display, <span class="ty">BorderLayout.NORTH</span>);
-
-        <span class="ty">JPanel</span> grid = <span class="kw">new</span> <span class="ty">JPanel</span>(<span class="kw">new</span> <span class="ty">GridLayout</span>(<span class="nm">5</span>, <span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">5</span>));
-        <span class="kw">for</span> (<span class="ty">String</span>[] row : KEYS) {
-            <span class="kw">for</span> (<span class="ty">String</span> label : row) {
-                <span class="ty">JButton</span> btn = <span class="kw">new</span> <span class="ty">JButton</span>(label);
-                btn.setFont(<span class="kw">new</span> <span class="ty">Font</span>(<span class="st">"SansSerif"</span>, <span class="ty">Font.BOLD</span>, <span class="nm">18</span>));
-                btn.setBackground(<span class="fn">isOp</span>(label) ? <span class="kw">new</span> <span class="ty">Color</span>(<span class="nm">255</span>,<span class="nm">149</span>,<span class="nm">0</span>) : <span class="kw">new</span> <span class="ty">Color</span>(<span class="nm">50</span>,<span class="nm">50</span>,<span class="nm">50</span>));
-                btn.setForeground(<span class="ty">Color.WHITE</span>);
-                btn.addActionListener(<span class="kw">this</span>);
-                grid.add(btn);
-            }
-        }
-        add(grid, <span class="ty">BorderLayout.CENTER</span>);
-        setSize(<span class="nm">300</span>, <span class="nm">400</span>); setLocationRelativeTo(<span class="kw">null</span>); setVisible(<span class="kw">true</span>);
-    }
-
-    <span class="kw">private boolean</span> <span class="fn">isOp</span>(<span class="ty">String</span> s) {
-        <span class="kw">return</span> s.equals(<span class="st">"+"</span>)||s.equals(<span class="st">"−"</span>)||s.equals(<span class="st">"×"</span>)||s.equals(<span class="st">"÷"</span>)||s.equals(<span class="st">"="</span>);
-    }
-
-    <span class="kw">public void</span> <span class="fn">actionPerformed</span>(<span class="ty">ActionEvent</span> e) {
-        <span class="ty">String</span> cmd = e.getActionCommand();
-        <span class="kw">switch</span> (cmd) {
-            <span class="kw">case</span> <span class="st">"C"</span>: display.setText(<span class="st">"0"</span>); start = <span class="kw">true</span>; <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"±"</span>: display.setText(<span class="ty">String</span>.valueOf(-<span class="ty">Double</span>.parseDouble(display.getText()))); <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"%"</span>: display.setText(<span class="ty">String</span>.valueOf(<span class="ty">Double</span>.parseDouble(display.getText())/100)); <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"="</span>:
-                num2 = <span class="ty">Double</span>.parseDouble(display.getText());
-                <span class="kw">switch</span> (op) {
-                    <span class="kw">case</span> <span class="st">'+'</span>: result = num1+num2; <span class="kw">break</span>;
-                    <span class="kw">case</span> <span class="st">'−'</span>: result = num1-num2; <span class="kw">break</span>;
-                    <span class="kw">case</span> <span class="st">'×'</span>: result = num1*num2; <span class="kw">break</span>;
-                    <span class="kw">case</span> <span class="st">'÷'</span>: result = num2==<span class="nm">0</span>?Double.NaN:num1/num2; <span class="kw">break</span>;
-                }
-                display.setText(result == (<span class="kw">long</span>)result
-                    ? <span class="ty">String</span>.valueOf((<span class="kw">long</span>)result)
-                    : <span class="ty">String</span>.valueOf(result));
-                start = <span class="kw">true</span>; <span class="kw">break</span>;
-            <span class="kw">default</span>:
-                <span class="kw">if</span> (<span class="fn">isOp</span>(cmd)) {
-                    num1 = <span class="ty">Double</span>.parseDouble(display.getText());
-                    op   = cmd.charAt(<span class="nm">0</span>); start = <span class="kw">true</span>;
-                } <span class="kw">else</span> {
-                    <span class="kw">if</span> (start) { display.setText(cmd); start = <span class="kw">false</span>; }
-                    <span class="kw">else</span>       display.setText(display.getText() + cmd);
-                }
-        }
-    }
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) { <span class="kw">new</span> <span class="ty">Calculator</span>(); }
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p2-conv">
-<pre><code><span class="kw">import</span> javax.swing.*;
-<span class="kw">import</span> java.awt.*;
-<span class="kw">import</span> java.awt.event.*;
-
-<span class="kw">public class</span> <span class="ty">TempConverter</span> <span class="kw">extends</span> <span class="ty">JFrame</span> {
-
-    <span class="kw">private</span> <span class="ty">JTextField</span> inputField  = <span class="kw">new</span> <span class="ty">JTextField</span>(<span class="nm">10</span>);
-    <span class="kw">private</span> <span class="ty">JTextField</span> outputField = <span class="kw">new</span> <span class="ty">JTextField</span>(<span class="nm">10</span>);
-    <span class="kw">private</span> <span class="ty">JLabel</span>     resultLabel = <span class="kw">new</span> <span class="ty">JLabel</span>(<span class="st">"  ---"</span>);
-    <span class="kw">private</span> <span class="ty">JRadioButton</span> ftoc = <span class="kw">new</span> <span class="ty">JRadioButton</span>(<span class="st">"°F → °C"</span>, <span class="kw">true</span>);
-    <span class="kw">private</span> <span class="ty">JRadioButton</span> ctof = <span class="kw">new</span> <span class="ty">JRadioButton</span>(<span class="st">"°C → °F"</span>);
-
-    <span class="ty">TempConverter</span>() {
-        setTitle(<span class="st">"Temperature Converter"</span>);
-        setDefaultCloseOperation(<span class="ty">EXIT_ON_CLOSE</span>);
-        setLayout(<span class="kw">new</span> <span class="ty">GridBagLayout</span>());
-        <span class="ty">GridBagConstraints</span> g = <span class="kw">new</span> <span class="ty">GridBagConstraints</span>();
-        g.insets = <span class="kw">new</span> <span class="ty">Insets</span>(<span class="nm">8</span>,<span class="nm">8</span>,<span class="nm">8</span>,<span class="nm">8</span>);
-        g.fill = <span class="ty">GridBagConstraints.HORIZONTAL</span>;
-
-        <span class="ty">ButtonGroup</span> bg = <span class="kw">new</span> <span class="ty">ButtonGroup</span>(); bg.add(ftoc); bg.add(ctof);
-        <span class="ty">JPanel</span> rbPanel = <span class="kw">new</span> <span class="ty">JPanel</span>(); rbPanel.add(ftoc); rbPanel.add(ctof);
-
-        <span class="ty">JButton</span> convertBtn = <span class="kw">new</span> <span class="ty">JButton</span>(<span class="st">"Convert"</span>);
-        <span class="ty">JButton</span> clearBtn   = <span class="kw">new</span> <span class="ty">JButton</span>(<span class="st">"Clear"</span>);
-
-        convertBtn.addActionListener(e -&gt; {
-            <span class="kw">try</span> {
-                <span class="kw">double</span> val = <span class="ty">Double</span>.parseDouble(inputField.getText());
-                <span class="kw">double</span> res = ftoc.isSelected()
-                    ? (val - <span class="nm">32</span>) * <span class="nm">5.0</span> / <span class="nm">9.0</span>
-                    : (val * <span class="nm">9.0</span> / <span class="nm">5.0</span>) + <span class="nm">32</span>;
-                <span class="ty">String</span> unit = ftoc.isSelected() ? <span class="st">"°C"</span> : <span class="st">"°F"</span>;
-                outputField.setText(<span class="ty">String</span>.format(<span class="st">"%.2f %s"</span>, res, unit));
-                resultLabel.setText(<span class="ty">String</span>.format(<span class="st">"%.2f → %.2f %s"</span>, val, res, unit));
-            } <span class="kw">catch</span> (<span class="ty">NumberFormatException</span> ex) {
-                <span class="ty">JOptionPane</span>.showMessageDialog(<span class="kw">this</span>, <span class="st">"Enter a valid number!"</span>);
-            }
-        });
-        clearBtn.addActionListener(e -&gt; {
-            inputField.setText(<span class="st">""</span>); outputField.setText(<span class="st">""</span>); resultLabel.setText(<span class="st">"  ---"</span>);
-        });
-
-        <span class="cm">// Layout</span>
-        <span class="fn">addRow</span>(g, <span class="kw">new</span> <span class="ty">JLabel</span>(<span class="st">"Conversion:"</span>), rbPanel,   <span class="nm">0</span>);
-        <span class="fn">addRow</span>(g, <span class="kw">new</span> <span class="ty">JLabel</span>(<span class="st">"Input:"</span>),      inputField, <span class="nm">1</span>);
-        <span class="fn">addRow</span>(g, <span class="kw">new</span> <span class="ty">JLabel</span>(<span class="st">"Result:"</span>),     outputField,<span class="nm">2</span>);
-        <span class="fn">addRow</span>(g, convertBtn, clearBtn, <span class="nm">3</span>);
-
-        pack(); setLocationRelativeTo(<span class="kw">null</span>); setVisible(<span class="kw">true</span>);
-    }
-
-    <span class="kw">private void</span> <span class="fn">addRow</span>(<span class="ty">GridBagConstraints</span> g, <span class="ty">Component</span> a, <span class="ty">Component</span> b, <span class="kw">int</span> row) {
-        g.gridx=<span class="nm">0</span>; g.gridy=row; add(a, g);
-        g.gridx=<span class="nm">1</span>;              add(b, g);
-    }
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) { <span class="kw">new</span> <span class="ty">TempConverter</span>(); }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output">
-    <div class="output-header">Expected Output (GUI Window)</div>
-    <pre>Calculator GUI launches | Buttons respond to click | Result displayed in text field
-TempConverter: 98.6 °F → 37.00 °C  |  0 °C → 32.00 °F</pre>
-  </div>
-</section><hr class="divider">
-
-<!-- PROGRAM 3 – Threads -->
-<section class="program" id="p3">
-  <div class="program-header">
-    <div class="prog-num">03</div>
-    <h2>Application of Threads</h2>
-    <span class="tag">Concurrency</span>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p3','t1')">Thread Class</button>
-    <button class="tab-btn" onclick="switchTab(this,'p3','t2')">Runnable</button>
-    <button class="tab-btn" onclick="switchTab(this,'p3','t3')">Synchronization</button>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span id="p3-label">ThreadDemo.java</span><button class="copy-btn" onclick="copyCode('p3-active')">copy</button></div>
-
-    <div class="code-panel active" id="p3-t1">
-<pre><code><span class="cm">// Extending Thread class</span>
-<span class="kw">class</span> <span class="ty">DownloadThread</span> <span class="kw">extends</span> <span class="ty">Thread</span> {
-    <span class="kw">private</span> <span class="ty">String</span> filename;
-    <span class="ty">DownloadThread</span>(<span class="ty">String</span> name, <span class="ty">String</span> file) {
-        <span class="kw">super</span>(name); filename = file;
-    }
-    <span class="kw">public void</span> <span class="fn">run</span>() {
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">10</span>; i &lt;= <span class="nm">100</span>; i += <span class="nm">10</span>) {
-            System.out.printf(<span class="st">"[%s] Downloading %s ... %d%%%n"</span>, getName(), filename, i);
-            <span class="kw">try</span> { <span class="ty">Thread</span>.sleep(<span class="nm">200</span>); } <span class="kw">catch</span> (<span class="ty">InterruptedException</span> e) { e.printStackTrace(); }
-        }
-        System.out.println(<span class="st">"[" + getName() + "] Download COMPLETE: "</span> + filename);
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">ThreadExtendDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">InterruptedException</span> {
-        <span class="ty">DownloadThread</span> t1 = <span class="kw">new</span> <span class="ty">DownloadThread</span>(<span class="st">"T1"</span>, <span class="st">"report.pdf"</span>);
-        <span class="ty">DownloadThread</span> t2 = <span class="kw">new</span> <span class="ty">DownloadThread</span>(<span class="st">"T2"</span>, <span class="st">"video.mp4"</span>);
-        t1.setPriority(<span class="ty">Thread.MAX_PRIORITY</span>);
-        t2.setPriority(<span class="ty">Thread.MIN_PRIORITY</span>);
-        t1.start(); t2.start();
-        t1.join(); t2.join();
-        System.out.println(<span class="st">"All downloads finished."</span>);
-    }
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p3-t2">
-<pre><code><span class="cm">// Implementing Runnable interface (preferred for flexibility)</span>
-<span class="kw">class</span> <span class="ty">Counter</span> <span class="kw">implements</span> <span class="ty">Runnable</span> {
-    <span class="kw">private</span> <span class="ty">String</span> name;
-    <span class="kw">private int</span>    limit;
-    <span class="ty">Counter</span>(<span class="ty">String</span> name, <span class="kw">int</span> limit) { <span class="kw">this</span>.name=name; <span class="kw">this</span>.limit=limit; }
-    <span class="kw">public void</span> <span class="fn">run</span>() {
-        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">1</span>; i &lt;= limit; i++) {
-            System.out.printf(<span class="st">"%-10s → %d%n"</span>, name, i);
-            <span class="kw">try</span> { <span class="ty">Thread</span>.sleep(<span class="nm">100</span>); } <span class="kw">catch</span> (<span class="ty">InterruptedException</span> e) { }
-        }
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">RunnableDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">InterruptedException</span> {
-        <span class="ty">Thread</span> t1 = <span class="kw">new</span> <span class="ty">Thread</span>(<span class="kw">new</span> <span class="ty">Counter</span>(<span class="st">"EvenThread"</span>,<span class="nm">5</span>), <span class="st">"T1"</span>);
-        <span class="ty">Thread</span> t2 = <span class="kw">new</span> <span class="ty">Thread</span>(<span class="kw">new</span> <span class="ty">Counter</span>(<span class="st">"OddThread"</span>, <span class="nm">5</span>), <span class="st">"T2"</span>);
-        <span class="cm">// Lambda alternative (Java 8+)</span>
-        <span class="ty">Thread</span> t3 = <span class="kw">new</span> <span class="ty">Thread</span>(() -&gt; {
-            System.out.println(<span class="st">"Lambda thread running on: "</span> + <span class="ty">Thread</span>.currentThread().getName());
-        });
-        t1.start(); t2.start(); t3.start();
-        t1.join(); t2.join(); t3.join();
-        System.out.println(<span class="st">"Main thread ends."</span>);
-    }
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p3-t3">
-<pre><code><span class="cm">// Producer-Consumer with synchronized block</span>
-<span class="kw">class</span> <span class="ty">SharedBuffer</span> {
-    <span class="kw">private int</span>     data;
-    <span class="kw">private boolean</span> available = <span class="kw">false</span>;
-
-    <span class="kw">public synchronized void</span> <span class="fn">produce</span>(<span class="kw">int</span> val) <span class="kw">throws</span> <span class="ty">InterruptedException</span> {
-        <span class="kw">while</span> (available) wait();
-        data = val;
-        available = <span class="kw">true</span>;
-        System.out.println(<span class="st">"Produced: "</span> + val);
-        notifyAll();
-    }
-
-    <span class="kw">public synchronized int</span> <span class="fn">consume</span>() <span class="kw">throws</span> <span class="ty">InterruptedException</span> {
-        <span class="kw">while</span> (!available) wait();
-        available = <span class="kw">false</span>;
-        System.out.println(<span class="st">"Consumed: "</span> + data);
-        notifyAll();
-        <span class="kw">return</span> data;
-    }
-}
-
-<span class="kw">public class</span> <span class="ty">SyncDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="ty">SharedBuffer</span> buf = <span class="kw">new</span> <span class="ty">SharedBuffer</span>();
-        <span class="kw">new</span> <span class="ty">Thread</span>(() -&gt; {
-            <span class="kw">for</span> (<span class="kw">int</span> i=<span class="nm">1</span>;i&lt;=<span class="nm">5</span>;i++) <span class="kw">try</span> { buf.produce(i*<span class="nm">10</span>); } <span class="kw">catch</span>(<span class="ty">Exception</span> e){}
-        }, <span class="st">"Producer"</span>).start();
-        <span class="kw">new</span> <span class="ty">Thread</span>(() -&gt; {
-            <span class="kw">for</span> (<span class="kw">int</span> i=<span class="nm">1</span>;i&lt;=<span class="nm">5</span>;i++) <span class="kw">try</span> { buf.consume();  } <span class="kw">catch</span>(<span class="ty">Exception</span> e){}
-        }, <span class="st">"Consumer"</span>).start();
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Sample Output</div>
-  <pre>Produced: 10  |  Consumed: 10  |  Produced: 20  |  Consumed: 20  ...
-[T1] Downloading report.pdf ... 10%  |  [T2] Downloading video.mp4 ... 10% ...</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 4 – Personal Information System (Swing) -->
-<section class="program" id="p4">
-  <div class="program-header">
-    <div class="prog-num">04</div>
-    <h2>Personal Information System using Swing</h2>
-    <span class="tag">Swing CRUD</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>PersonalInfoSystem.java</span><button class="copy-btn" onclick="copyBlock('p4-code')">copy</button></div>
-    <div id="p4-code">
-<pre><code><span class="kw">import</span> javax.swing.*;
-<span class="kw">import</span> javax.swing.table.*;
-<span class="kw">import</span> java.awt.*;
-<span class="kw">import</span> java.util.*;
-
-<span class="kw">public class</span> <span class="ty">PersonalInfoSystem</span> <span class="kw">extends</span> <span class="ty">JFrame</span> {
-
-    <span class="kw">private</span> <span class="ty">JTextField</span> tfName, tfAge, tfEmail, tfPhone, tfCity, tfSearch;
-    <span class="kw">private</span> <span class="ty">DefaultTableModel</span> model;
-    <span class="kw">private</span> <span class="ty">JTable</span> table;
-
-    <span class="ty">PersonalInfoSystem</span>() {
-        setTitle(<span class="st">"Personal Information System"</span>);
-        setDefaultCloseOperation(<span class="ty">EXIT_ON_CLOSE</span>);
-        setLayout(<span class="kw">new</span> <span class="ty">BorderLayout</span>(<span class="nm">10</span>,<span class="nm">10</span>));
-        ((JComponent)getContentPane()).setBorder(<span class="ty">BorderFactory</span>.createEmptyBorder(<span class="nm">10</span>,<span class="nm">10</span>,<span class="nm">10</span>,<span class="nm">10</span>));
-
-        <span class="cm">// --- FORM PANEL ---</span>
-        <span class="ty">JPanel</span> form = <span class="kw">new</span> <span class="ty">JPanel</span>(<span class="kw">new</span> <span class="ty">GridLayout</span>(<span class="nm">6</span>,<span class="nm">2</span>,<span class="nm">8</span>,<span class="nm">8</span>));
-        form.setBorder(<span class="ty">BorderFactory</span>.createTitledBorder(<span class="st">"Personal Details"</span>));
-        tfName  = addField(form, <span class="st">"Name:"</span>);
-        tfAge   = addField(form, <span class="st">"Age:"</span>);
-        tfEmail = addField(form, <span class="st">"Email:"</span>);
-        tfPhone = addField(form, <span class="st">"Phone:"</span>);
-        tfCity  = addField(form, <span class="st">"City:"</span>);
-        tfSearch= addField(form, <span class="st">"Search:"</span>);
-        add(form, <span class="ty">BorderLayout.NORTH</span>);
-
-        <span class="cm">// --- BUTTON PANEL ---</span>
-        <span class="ty">JPanel</span> btns = <span class="kw">new</span> <span class="ty">JPanel</span>(<span class="kw">new</span> <span class="ty">FlowLayout</span>());
-        <span class="ty">String</span>[] bNames = {<span class="st">"Add"</span>,<span class="st">"Update"</span>,<span class="st">"Delete"</span>,<span class="st">"Search"</span>,<span class="st">"Clear"</span>};
-        <span class="kw">for</span> (<span class="ty">String</span> bn : bNames) {
-            <span class="ty">JButton</span> b = <span class="kw">new</span> <span class="ty">JButton</span>(bn);
-            b.addActionListener(e -&gt; handle(bn));
-            btns.add(b);
-        }
-        add(btns, <span class="ty">BorderLayout.CENTER</span>);
-
-        <span class="cm">// --- TABLE ---</span>
-        model = <span class="kw">new</span> <span class="ty">DefaultTableModel</span>(
-            <span class="kw">new</span> <span class="ty">String</span>[]{<span class="st">"Name"</span>,<span class="st">"Age"</span>,<span class="st">"Email"</span>,<span class="st">"Phone"</span>,<span class="st">"City"</span>}, <span class="nm">0</span>);
-        table = <span class="kw">new</span> <span class="ty">JTable</span>(model);
-        table.getSelectionModel().addListSelectionListener(e -&gt; fillForm());
-        add(<span class="kw">new</span> <span class="ty">JScrollPane</span>(table), <span class="ty">BorderLayout.SOUTH</span>);
-
-        setSize(<span class="nm">700</span>,<span class="nm">550</span>); setLocationRelativeTo(<span class="kw">null</span>); setVisible(<span class="kw">true</span>);
-    }
-
-    <span class="kw">private</span> <span class="ty">JTextField</span> <span class="fn">addField</span>(<span class="ty">JPanel</span> p, <span class="ty">String</span> label) {
-        p.add(<span class="kw">new</span> <span class="ty">JLabel</span>(label)); <span class="ty">JTextField</span> tf = <span class="kw">new</span> <span class="ty">JTextField</span>(); p.add(tf); <span class="kw">return</span> tf;
-    }
-
-    <span class="kw">private void</span> <span class="fn">handle</span>(<span class="ty">String</span> action) {
-        <span class="kw">switch</span>(action) {
-            <span class="kw">case</span> <span class="st">"Add"</span>:
-                model.addRow(<span class="kw">new</span> <span class="ty">Object</span>[]{tfName.getText(),tfAge.getText(),
-                    tfEmail.getText(),tfPhone.getText(),tfCity.getText()});
-                clearFields(); <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"Delete"</span>:
-                <span class="kw">int</span> row = table.getSelectedRow();
-                <span class="kw">if</span> (row &gt;= <span class="nm">0</span>) model.removeRow(row); <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"Update"</span>:
-                <span class="kw">int</span> r = table.getSelectedRow();
-                <span class="kw">if</span> (r &gt;= <span class="nm">0</span>) {
-                    model.setValueAt(tfName.getText(),  r, <span class="nm">0</span>);
-                    model.setValueAt(tfAge.getText(),   r, <span class="nm">1</span>);
-                    model.setValueAt(tfEmail.getText(), r, <span class="nm">2</span>);
-                    model.setValueAt(tfPhone.getText(), r, <span class="nm">3</span>);
-                    model.setValueAt(tfCity.getText(),  r, <span class="nm">4</span>);
-                } <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"Search"</span>:
-                <span class="ty">String</span> q = tfSearch.getText().toLowerCase();
-                <span class="kw">for</span> (<span class="kw">int</span> i=<span class="nm">0</span>;i&lt;model.getRowCount();i++)
-                    <span class="kw">if</span>(model.getValueAt(i,<span class="nm">0</span>).toString().toLowerCase().contains(q))
-                      { table.setRowSelectionInterval(i,i); <span class="kw">break</span>; }
-                <span class="kw">break</span>;
-            <span class="kw">case</span> <span class="st">"Clear"</span>: clearFields(); <span class="kw">break</span>;
-        }
-    }
-
-    <span class="kw">private void</span> <span class="fn">fillForm</span>() {
-        <span class="kw">int</span> r = table.getSelectedRow();
-        <span class="kw">if</span> (r &lt; <span class="nm">0</span>) <span class="kw">return</span>;
-        tfName.setText(model.getValueAt(r,<span class="nm">0</span>).toString());
-        tfAge.setText (model.getValueAt(r,<span class="nm">1</span>).toString());
-        tfEmail.setText(model.getValueAt(r,<span class="nm">2</span>).toString());
-        tfPhone.setText(model.getValueAt(r,<span class="nm">3</span>).toString());
-        tfCity.setText (model.getValueAt(r,<span class="nm">4</span>).toString());
-    }
-    <span class="kw">private void</span> <span class="fn">clearFields</span>() {
-        <span class="kw">for</span> (<span class="ty">JTextField</span> f : <span class="kw">new</span> <span class="ty">JTextField</span>[]{tfName,tfAge,tfEmail,tfPhone,tfCity,tfSearch})
-            f.setText(<span class="st">""</span>);
-    }
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) { <span class="kw">new</span> <span class="ty">PersonalInfoSystem</span>(); }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Expected Behaviour</div>
-  <pre>GUI window with form + table | Add fills table row | Click row fills form
-Update modifies selected row | Delete removes row | Search highlights match</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 5 – Event Handling in Swing -->
-<section class="program" id="p5">
-  <div class="program-header">
-    <div class="prog-num">05</div>
-    <h2>Event Handling in Swing</h2>
-    <span class="tag">Listeners / Events</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>EventHandlingDemo.java</span><button class="copy-btn" onclick="copyBlock('p5-code')">copy</button></div>
-    <div id="p5-code">
-<pre><code><span class="kw">import</span> javax.swing.*;
-<span class="kw">import</span> java.awt.*;
-<span class="kw">import</span> java.awt.event.*;
-<span class="kw">import</span> javax.swing.event.*;
-
-<span class="kw">public class</span> <span class="ty">EventHandlingDemo</span> <span class="kw">extends</span> <span class="ty">JFrame</span>
-        <span class="kw">implements</span> <span class="ty">ActionListener</span>, <span class="ty">MouseListener</span>, <span class="ty">KeyListener</span> {
-
-    <span class="kw">private</span> <span class="ty">JTextArea</span> log;
-    <span class="kw">private</span> <span class="ty">JSlider</span>   slider;
-    <span class="kw">private</span> <span class="ty">JLabel</span>    sliderLabel;
-    <span class="kw">private</span> <span class="ty">JTextField</span> keyField;
-    <span class="kw">private</span> <span class="ty">JComboBox</span>&lt;<span class="ty">String</span>&gt; combo;
-
-    <span class="ty">EventHandlingDemo</span>() {
-        setTitle(<span class="st">"Event Handling Demo"</span>); setSize(<span class="nm">600</span>,<span class="nm">500</span>);
-        setDefaultCloseOperation(<span class="ty">EXIT_ON_CLOSE</span>);
-        setLayout(<span class="kw">new</span> <span class="ty">BorderLayout</span>(<span class="nm">8</span>,<span class="nm">8</span>));
-
-        <span class="ty">JPanel</span> top = <span class="kw">new</span> <span class="ty">JPanel</span>(<span class="kw">new</span> <span class="ty">FlowLayout</span>());
-
-        <span class="cm">// ActionListener — Button</span>
-        <span class="ty">JButton</span> btn = <span class="kw">new</span> <span class="ty">JButton</span>(<span class="st">"Click Me"</span>); btn.addActionListener(<span class="kw">this</span>); top.add(btn);
-
-        <span class="cm">// ItemListener — Checkbox</span>
-        <span class="ty">JCheckBox</span> cb = <span class="kw">new</span> <span class="ty">JCheckBox</span>(<span class="st">"Bold"</span>);
-        cb.addItemListener(e -&gt; append(<span class="st">"CheckBox: "</span> + (cb.isSelected()?<span class="st">"CHECKED"</span>:<span class="st">"unchecked"</span>)));
-        top.add(cb);
-
-        <span class="cm">// ActionListener — ComboBox</span>
-        combo = <span class="kw">new</span> <span class="ty">JComboBox</span>&lt;&gt;(<span class="kw">new</span> <span class="ty">String</span>[]{<span class="st">"Red"</span>,<span class="st">"Green"</span>,<span class="st">"Blue"</span>});
-        combo.addActionListener(e -&gt; append(<span class="st">"Combo: "</span> + combo.getSelectedItem()));
-        top.add(combo);
-
-        <span class="cm">// WindowListener</span>
-        addWindowListener(<span class="kw">new</span> <span class="ty">WindowAdapter</span>() {
-            <span class="kw">public void</span> <span class="fn">windowClosing</span>(<span class="ty">WindowEvent</span> e) { append(<span class="st">"Window closing!"</span>); }
-        });
-
-        <span class="cm">// KeyListener</span>
-        keyField = <span class="kw">new</span> <span class="ty">JTextField</span>(<span class="nm">15</span>); keyField.addKeyListener(<span class="kw">this</span>);
-        keyField.setBorder(<span class="ty">BorderFactory</span>.createTitledBorder(<span class="st">"Type here"</span>));
-        top.add(keyField);
-
-        <span class="cm">// ChangeListener — Slider</span>
-        slider = <span class="kw">new</span> <span class="ty">JSlider</span>(<span class="nm">0</span>,<span class="nm">100</span>,<span class="nm">50</span>);
-        sliderLabel = <span class="kw">new</span> <span class="ty">JLabel</span>(<span class="st">"Value: 50"</span>);
-        slider.addChangeListener(e -&gt; {
-            sliderLabel.setText(<span class="st">"Value: "</span> + slider.getValue());
-            append(<span class="st">"Slider: "</span> + slider.getValue());
-        });
-
-        <span class="cm">// MouseListener — canvas</span>
-        <span class="ty">JPanel</span> canvas = <span class="kw">new</span> <span class="ty">JPanel</span>();
-        canvas.setBackground(<span class="kw">new</span> <span class="ty">Color</span>(<span class="nm">30</span>,<span class="nm">30</span>,<span class="nm">60</span>));
-        canvas.setPreferredSize(<span class="kw">new</span> <span class="ty">Dimension</span>(<span class="nm">580</span>,<span class="nm">80</span>));
-        canvas.setBorder(<span class="ty">BorderFactory</span>.createTitledBorder(<span class="st">"Mouse Events Zone"</span>));
-        canvas.addMouseListener(<span class="kw">this</span>);
-
-        log = <span class="kw">new</span> <span class="ty">JTextArea</span>(<span class="nm">8</span>,<span class="nm">50</span>); log.setEditable(<span class="kw">false</span>);
-        log.setBackground(<span class="kw">new</span> <span class="ty">Color</span>(<span class="nm">15</span>,<span class="nm">15</span>,<span class="nm">25</span>)); log.setForeground(<span class="kw">new</span> <span class="ty">Color</span>(<span class="nm">0</span>,<span class="nm">230</span>,<span class="nm">130</span>));
-
-        add(top,<span class="ty">BorderLayout.NORTH</span>);
-        <span class="ty">JPanel</span> mid = <span class="kw">new</span> <span class="ty">JPanel</span>(<span class="kw">new</span> <span class="ty">BorderLayout</span>()); mid.add(slider); mid.add(sliderLabel,<span class="ty">BorderLayout.EAST</span>);
-        add(mid,<span class="ty">BorderLayout.CENTER</span>);
-        add(canvas,<span class="ty">BorderLayout.EAST</span>);
-        add(<span class="kw">new</span> <span class="ty">JScrollPane</span>(log),<span class="ty">BorderLayout.SOUTH</span>);
-        setLocationRelativeTo(<span class="kw">null</span>); setVisible(<span class="kw">true</span>);
-    }
-
-    <span class="kw">private void</span> <span class="fn">append</span>(<span class="ty">String</span> s) { log.append(s + <span class="st">"\n"</span>); }
-
-    <span class="kw">public void</span> <span class="fn">actionPerformed</span>(<span class="ty">ActionEvent</span> e) { append(<span class="st">"Button clicked: "</span> + e.getActionCommand()); }
-
-    <span class="kw">public void</span> <span class="fn">mouseClicked</span>(<span class="ty">MouseEvent</span> e)  { append(<span class="st">"Mouse CLICKED at ("</span>+e.getX()+<span class="st">","</span>+e.getY()+<span class="st">") button="</span>+e.getButton()); }
-    <span class="kw">public void</span> <span class="fn">mouseEntered</span>(<span class="ty">MouseEvent</span> e)  { append(<span class="st">"Mouse ENTERED canvas"</span>); }
-    <span class="kw">public void</span> <span class="fn">mouseExited</span>(<span class="ty">MouseEvent</span> e)   { append(<span class="st">"Mouse EXITED canvas"</span>); }
-    <span class="kw">public void</span> <span class="fn">mousePressed</span>(<span class="ty">MouseEvent</span> e)  { }
-    <span class="kw">public void</span> <span class="fn">mouseReleased</span>(<span class="ty">MouseEvent</span> e) { }
-
-    <span class="kw">public void</span> <span class="fn">keyTyped</span>(<span class="ty">KeyEvent</span> e)   { append(<span class="st">"Key TYPED: '"</span>   + e.getKeyChar()  + <span class="st">"'"</span>); }
-    <span class="kw">public void</span> <span class="fn">keyPressed</span>(<span class="ty">KeyEvent</span> e) { append(<span class="st">"Key PRESSED: "</span>  + <span class="ty">KeyEvent</span>.getKeyText(e.getKeyCode())); }
-    <span class="kw">public void</span> <span class="fn">keyReleased</span>(<span class="ty">KeyEvent</span> e){ append(<span class="st">"Key RELEASED: "</span> + <span class="ty">KeyEvent</span>.getKeyText(e.getKeyCode())); }
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) { <span class="kw">new</span> <span class="ty">EventHandlingDemo</span>(); }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Log Panel Output</div>
-  <pre>Button clicked: Click Me | CheckBox: CHECKED | Combo: Blue
-Key TYPED: 'J' | Mouse CLICKED at (145,32) button=1 | Slider: 72</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 6 – File I/O -->
-<section class="program" id="p6">
-  <div class="program-header">
-    <div class="prog-num">06</div>
-    <h2>Reading and Writing Text Files</h2>
-    <span class="tag">File I/O</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>FileIODemo.java</span><button class="copy-btn" onclick="copyBlock('p6-code')">copy</button></div>
-    <div id="p6-code">
-<pre><code><span class="kw">import</span> java.io.*;
-<span class="kw">import</span> java.nio.file.*;
-<span class="kw">import</span> java.util.*;
-
-<span class="kw">public class</span> <span class="ty">FileIODemo</span> {
-
-    <span class="kw">static final</span> <span class="ty">String</span> FILE = <span class="st">"students.txt"</span>;
-
-    <span class="cm">// ── 1. Write using BufferedWriter ──────────────────────────────</span>
-    <span class="kw">static void</span> <span class="fn">writeFile</span>() <span class="kw">throws</span> <span class="ty">IOException</span> {
-        <span class="ty">String</span>[] data = {
-            <span class="st">"101,Alice,Computer Science,92.5"</span>,
-            <span class="st">"102,Bob,Electronics,87.0"</span>,
-            <span class="st">"103,Carol,Mechanical,95.0"</span>
-        };
-        <span class="kw">try</span> (<span class="ty">BufferedWriter</span> bw = <span class="kw">new</span> <span class="ty">BufferedWriter</span>(<span class="kw">new</span> <span class="ty">FileWriter</span>(FILE))) {
-            bw.write(<span class="st">"RollNo,Name,Dept,Marks\n"</span>);
-            <span class="kw">for</span> (<span class="ty">String</span> line : data) { bw.write(line); bw.newLine(); }
-        }
-        System.out.println(<span class="st">"File written: "</span> + FILE);
-    }
-
-    <span class="cm">// ── 2. Read using BufferedReader ───────────────────────────────</span>
-    <span class="kw">static void</span> <span class="fn">readFile</span>() <span class="kw">throws</span> <span class="ty">IOException</span> {
-        System.out.println(<span class="st">"\n─── File Contents ───"</span>);
-        <span class="kw">try</span> (<span class="ty">BufferedReader</span> br = <span class="kw">new</span> <span class="ty">BufferedReader</span>(<span class="kw">new</span> <span class="ty">FileReader</span>(FILE))) {
-            <span class="ty">String</span> line;
-            <span class="kw">while</span> ((line = br.readLine()) != <span class="kw">null</span>) System.out.println(line);
-        }
-    }
-
-    <span class="cm">// ── 3. Append a record ────────────────────────────────────────</span>
-    <span class="kw">static void</span> <span class="fn">appendFile</span>() <span class="kw">throws</span> <span class="ty">IOException</span> {
-        <span class="kw">try</span> (<span class="ty">BufferedWriter</span> bw = <span class="kw">new</span> <span class="ty">BufferedWriter</span>(<span class="kw">new</span> <span class="ty">FileWriter</span>(FILE, <span class="kw">true</span>))) {
-            bw.write(<span class="st">"104,Dave,IT,88.5"</span>); bw.newLine();
-        }
-        System.out.println(<span class="st">"\nRecord appended."</span>);
-    }
-
-    <span class="cm">// ── 4. Search in file ─────────────────────────────────────────</span>
-    <span class="kw">static void</span> <span class="fn">searchFile</span>(<span class="ty">String</span> keyword) <span class="kw">throws</span> <span class="ty">IOException</span> {
-        System.out.println(<span class="st">"\n─── Search: '"</span> + keyword + <span class="st">"' ───"</span>);
-        <span class="kw">try</span> (<span class="ty">BufferedReader</span> br = <span class="kw">new</span> <span class="ty">BufferedReader</span>(<span class="kw">new</span> <span class="ty">FileReader</span>(FILE))) {
-            br.lines()
-              .filter(l -&gt; l.toLowerCase().contains(keyword.toLowerCase()))
-              .forEach(System.out::println);
-        }
-    }
-
-    <span class="cm">// ── 5. Count lines / words ────────────────────────────────────</span>
-    <span class="kw">static void</span> <span class="fn">countFile</span>() <span class="kw">throws</span> <span class="ty">IOException</span> {
-        <span class="kw">long</span> lines = <span class="ty">Files</span>.lines(<span class="ty">Paths</span>.get(FILE)).count();
-        <span class="kw">long</span> words = <span class="ty">Files</span>.lines(<span class="ty">Paths</span>.get(FILE))
-                          .flatMap(l -&gt; <span class="ty">Arrays</span>.stream(l.split(<span class="st">","</span>))).count();
-        System.out.printf(<span class="st">"%nLines: %d  |  Fields: %d%n"</span>, lines, words);
-    }
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">IOException</span> {
-        writeFile();
-        readFile();
-        appendFile();
-        readFile();
-        searchFile(<span class="st">"alice"</span>);
-        countFile();
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Output</div>
-  <pre>File written: students.txt
-─── File Contents ───
-RollNo,Name,Dept,Marks
-101,Alice,Computer Science,92.5
-102,Bob,Electronics,87.0  ...
-─── Search: 'alice' ───
-101,Alice,Computer Science,92.5
-Lines: 5  |  Fields: 20</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 7 – RMI -->
-<section class="program" id="p7">
-  <div class="program-header">
-    <div class="prog-num">07</div>
-    <h2>RMI – Remote Method Invocation</h2>
-    <span class="tag">Distributed</span>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p7','ri')">Interface</button>
-    <button class="tab-btn" onclick="switchTab(this,'p7','rs')">Server</button>
-    <button class="tab-btn" onclick="switchTab(this,'p7','rc')">Client</button>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span id="p7-label">MathService.java</span><button class="copy-btn" onclick="copyCode('p7-active')">copy</button></div>
-
-    <div class="code-panel active" id="p7-ri">
-<pre><code><span class="cm">// File: MathService.java  — Remote Interface</span>
-<span class="kw">import</span> java.rmi.*;
-
-<span class="kw">public interface</span> <span class="ty">MathService</span> <span class="kw">extends</span> <span class="ty">Remote</span> {
-    <span class="kw">int</span>    <span class="fn">add</span>(<span class="kw">int</span> a, <span class="kw">int</span> b)      <span class="kw">throws</span> <span class="ty">RemoteException</span>;
-    <span class="kw">int</span>    <span class="fn">subtract</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) <span class="kw">throws</span> <span class="ty">RemoteException</span>;
-    <span class="kw">int</span>    <span class="fn">multiply</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) <span class="kw">throws</span> <span class="ty">RemoteException</span>;
-    <span class="kw">double</span> <span class="fn">divide</span>(<span class="kw">int</span> a, <span class="kw">int</span> b)   <span class="kw">throws</span> <span class="ty">RemoteException</span>;
-    <span class="kw">long</span>   <span class="fn">factorial</span>(<span class="kw">int</span> n)        <span class="kw">throws</span> <span class="ty">RemoteException</span>;
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p7-rs">
-<pre><code><span class="cm">// File: MathServiceImpl.java  — Server Implementation</span>
-<span class="kw">import</span> java.rmi.*;
-<span class="kw">import</span> java.rmi.server.*;
-<span class="kw">import</span> java.rmi.registry.*;
-
-<span class="kw">public class</span> <span class="ty">MathServiceImpl</span> <span class="kw">extends</span> <span class="ty">UnicastRemoteObject</span> <span class="kw">implements</span> <span class="ty">MathService</span> {
-
-    <span class="ty">MathServiceImpl</span>() <span class="kw">throws</span> <span class="ty">RemoteException</span> { <span class="kw">super</span>(); }
-
-    <span class="kw">public int</span>    <span class="fn">add</span>(<span class="kw">int</span> a, <span class="kw">int</span> b)      { <span class="kw">return</span> a + b; }
-    <span class="kw">public int</span>    <span class="fn">subtract</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) { <span class="kw">return</span> a - b; }
-    <span class="kw">public int</span>    <span class="fn">multiply</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) { <span class="kw">return</span> a * b; }
-    <span class="kw">public double</span> <span class="fn">divide</span>(<span class="kw">int</span> a, <span class="kw">int</span> b)   { <span class="kw">return</span> b==<span class="nm">0</span>?<span class="ty">Double</span>.NaN:(double)a/b; }
-    <span class="kw">public long</span>   <span class="fn">factorial</span>(<span class="kw">int</span> n) {
-        <span class="kw">long</span> f=<span class="nm">1</span>; <span class="kw">for</span>(<span class="kw">int</span> i=<span class="nm">2</span>;i&lt;=n;i++) f*=i; <span class="kw">return</span> f;
-    }
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        <span class="ty">MathServiceImpl</span> obj = <span class="kw">new</span> <span class="ty">MathServiceImpl</span>();
-        <span class="ty">Registry</span> reg = <span class="ty">LocateRegistry</span>.createRegistry(<span class="nm">1099</span>);
-        reg.rebind(<span class="st">"MathService"</span>, obj);
-        System.out.println(<span class="st">"RMI Server ready on port 1099..."</span>);
-    }
-}
-<span class="cm">/* Compile:  javac *.java
-   Run server: java MathServiceImpl  (keep running)  */</span></code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p7-rc">
-<pre><code><span class="cm">// File: RMIClient.java</span>
-<span class="kw">import</span> java.rmi.*;
-<span class="kw">import</span> java.rmi.registry.*;
-
-<span class="kw">public class</span> <span class="ty">RMIClient</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        <span class="ty">Registry</span> reg  = <span class="ty">LocateRegistry</span>.getRegistry(<span class="st">"localhost"</span>, <span class="nm">1099</span>);
-        <span class="ty">MathService</span> ms = (<span class="ty">MathService</span>) reg.lookup(<span class="st">"MathService"</span>);
-
-        System.out.println(<span class="st">"=== Remote Math Service ==="</span>);
-        System.out.println(<span class="st">"add(15,25)       = "</span> + ms.add(<span class="nm">15</span>,<span class="nm">25</span>));
-        System.out.println(<span class="st">"subtract(50,18)  = "</span> + ms.subtract(<span class="nm">50</span>,<span class="nm">18</span>));
-        System.out.println(<span class="st">"multiply(7,8)    = "</span> + ms.multiply(<span class="nm">7</span>,<span class="nm">8</span>));
-        System.out.println(<span class="st">"divide(22,7)     = "</span> + ms.divide(<span class="nm">22</span>,<span class="nm">7</span>));
-        System.out.println(<span class="st">"factorial(10)    = "</span> + ms.factorial(<span class="nm">10</span>));
-    }
-}
-<span class="cm">/* Run client: java RMIClient  */</span></code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Client Output</div>
-  <pre>=== Remote Math Service ===
-add(15,25)       = 40
-subtract(50,18)  = 32
-multiply(7,8)    = 56
-divide(22,7)     = 3.142857142857143
-factorial(10)    = 3628800</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 8 – Servlet + DB -->
-<section class="program" id="p8">
-  <div class="program-header">
-    <div class="prog-num">08</div>
-    <h2>Servlet with Database – Student Result &amp; PNR Enquiry</h2>
-    <span class="tag">Servlet / JDBC</span>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p8','sql')">DB Schema</button>
-    <button class="tab-btn" onclick="switchTab(this,'p8','sv')">ResultServlet</button>
-    <button class="tab-btn" onclick="switchTab(this,'p8','ht')">HTML Form</button>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span id="p8-label">schema.sql</span><button class="copy-btn" onclick="copyCode('p8-active')">copy</button></div>
-
-    <div class="code-panel active" id="p8-sql">
-<pre><code><span class="cm">-- MySQL Schema</span>
-<span class="kw">CREATE DATABASE</span> college;
-<span class="kw">USE</span> college;
-
-<span class="kw">CREATE TABLE</span> students (
-    roll_no   <span class="ty">VARCHAR</span>(<span class="nm">10</span>) <span class="kw">PRIMARY KEY</span>,
-    name      <span class="ty">VARCHAR</span>(<span class="nm">50</span>) <span class="kw">NOT NULL</span>,
-    subject1  <span class="ty">INT</span>,
-    subject2  <span class="ty">INT</span>,
-    subject3  <span class="ty">INT</span>,
-    subject4  <span class="ty">INT</span>,
-    subject5  <span class="ty">INT</span>
+<h1>DBMS Lab Practical Programs</h1>
+
+<div class="program">
+<h2>1. Creating Base Table and View</h2>
+<pre>
+CREATE TABLE Student (
+    Student_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Department VARCHAR(30),
+    Marks INT
 );
 
-<span class="kw">INSERT INTO</span> students <span class="kw">VALUES</span>
-  (<span class="st">'CS101'</span>,<span class="st">'Alice'</span>,<span class="nm">92</span>,<span class="nm">88</span>,<span class="nm">95</span>,<span class="nm">90</span>,<span class="nm">87</span>),
-  (<span class="st">'CS102'</span>,<span class="st">'Bob'</span>,<span class="nm">65</span>,<span class="nm">70</span>,<span class="nm">55</span>,<span class="nm">60</span>,<span class="nm">72</span>),
-  (<span class="st">'CS103'</span>,<span class="st">'Carol'</span>,<span class="nm">38</span>,<span class="nm">42</span>,<span class="nm">35</span>,<span class="nm">40</span>,<span class="nm">45</span>);
+INSERT INTO Student VALUES (1, 'Arun', 'CSE', 85);
+INSERT INTO Student VALUES (2, 'Kavi', 'ECE', 78);
 
-<span class="kw">CREATE TABLE</span> pnr_info (
-    pnr       <span class="ty">VARCHAR</span>(<span class="nm">15</span>) <span class="kw">PRIMARY KEY</span>,
-    passenger <span class="ty">VARCHAR</span>(<span class="nm">50</span>),
-    train     <span class="ty">VARCHAR</span>(<span class="nm">60</span>),
-    from_stn  <span class="ty">VARCHAR</span>(<span class="nm">30</span>),
-    to_stn    <span class="ty">VARCHAR</span>(<span class="nm">30</span>),
-    status    <span class="ty">VARCHAR</span>(<span class="nm">20</span>)
+CREATE VIEW Student_View AS
+SELECT Name, Department FROM Student;
+
+SELECT * FROM Student_View;
+</pre>
+</div>
+
+<div class="program">
+<h2>2. Data Manipulation</h2>
+<pre>
+CREATE TABLE Employee (
+    Emp_ID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary INT,
+    Department VARCHAR(30)
 );
-<span class="kw">INSERT INTO</span> pnr_info <span class="kw">VALUES</span>
-  (<span class="st">'1234567890'</span>,<span class="st">'Ravi Kumar'</span>,<span class="st">'12345 Chennai Express'</span>,<span class="st">'Chennai'</span>,<span class="st">'Mumbai'</span>,<span class="st">'CONFIRMED'</span>),
-  (<span class="st">'9876543210'</span>,<span class="st">'Priya Devi'</span>,<span class="st">'67890 Coimbatore Exp'</span>, <span class="st">'CBE'</span>,<span class="st">'Bangalore'</span>,<span class="st">'WAITLIST 3'</span>);</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p8-sv">
-<pre><code><span class="cm">// ResultServlet.java — handles both result + PNR via 'type' param</span>
-<span class="kw">import</span> jakarta.servlet.*;
-<span class="kw">import</span> jakarta.servlet.http.*;
-<span class="kw">import</span> java.io.*;
-<span class="kw">import</span> java.sql.*;
-
-<span class="kw">public class</span> <span class="ty">ResultServlet</span> <span class="kw">extends</span> <span class="ty">HttpServlet</span> {
-
-    <span class="kw">private static final</span> <span class="ty">String</span>
-        URL  = <span class="st">"jdbc:mysql://localhost:3306/college"</span>,
-        USER = <span class="st">"root"</span>,
-        PASS = <span class="st">"password"</span>;
-
-    <span class="kw">protected void</span> <span class="fn">doPost</span>(<span class="ty">HttpServletRequest</span> req, <span class="ty">HttpServletResponse</span> res)
-            <span class="kw">throws</span> <span class="ty">ServletException</span>, <span class="ty">IOException</span> {
-
-        res.setContentType(<span class="st">"text/html"</span>);
-        <span class="ty">PrintWriter</span> out = res.getWriter();
-        <span class="ty">String</span> type = req.getParameter(<span class="st">"type"</span>);
-
-        out.println(<span class="st">"&lt;html&gt;&lt;body style='font-family:Arial'&gt;"</span>);
-
-        <span class="kw">try</span> (<span class="ty">Connection</span> con = <span class="ty">DriverManager</span>.getConnection(URL, USER, PASS)) {
-
-            <span class="kw">if</span> (<span class="st">"result"</span>.equals(type)) {
-                <span class="ty">String</span> roll = req.getParameter(<span class="st">"rollno"</span>);
-                <span class="ty">PreparedStatement</span> ps = con.prepareStatement(
-                    <span class="st">"SELECT * FROM students WHERE roll_no=?"</span>);
-                ps.setString(<span class="nm">1</span>, roll);
-                <span class="ty">ResultSet</span> rs = ps.executeQuery();
-                <span class="kw">if</span> (rs.next()) {
-                    <span class="kw">int</span> total = rs.getInt(<span class="st">"subject1"</span>)+rs.getInt(<span class="st">"subject2"</span>)
-                              + rs.getInt(<span class="st">"subject3"</span>)+rs.getInt(<span class="st">"subject4"</span>)+rs.getInt(<span class="st">"subject5"</span>);
-                    <span class="kw">double</span> avg = total/<span class="nm">5.0</span>;
-                    <span class="ty">String</span> grade = avg>=<span class="nm">90</span>?<span class="st">"O"</span>:avg>=<span class="nm">75</span>?<span class="st">"A"</span>:avg>=<span class="nm">60</span>?<span class="st">"B"</span>:avg>=<span class="nm">50</span>?<span class="st">"C"</span>:<span class="st">"FAIL"</span>;
-                    out.println(<span class="st">"&lt;h2&gt;Result for "</span>+rs.getString(<span class="st">"name"</span>)+<span class="st">"&lt;/h2&gt;"</span>);
-                    out.println(<span class="st">"&lt;p&gt;Total: "</span>+total+<span class="st">" | Avg: "</span>+avg+<span class="st">" | Grade: "</span>+grade+<span class="st">"&lt;/p&gt;"</span>);
-                } <span class="kw">else</span> out.println(<span class="st">"&lt;p&gt;Roll number not found.&lt;/p&gt;"</span>);
-
-            } <span class="kw">else if</span> (<span class="st">"pnr"</span>.equals(type)) {
-                <span class="ty">String</span> pnr = req.getParameter(<span class="st">"pnr"</span>);
-                <span class="ty">PreparedStatement</span> ps = con.prepareStatement(
-                    <span class="st">"SELECT * FROM pnr_info WHERE pnr=?"</span>);
-                ps.setString(<span class="nm">1</span>, pnr);
-                <span class="ty">ResultSet</span> rs = ps.executeQuery();
-                <span class="kw">if</span> (rs.next()) {
-                    out.println(<span class="st">"&lt;h2&gt;PNR: "</span>+pnr+<span class="st">"&lt;/h2&gt;"</span>);
-                    out.println(<span class="st">"&lt;p&gt;Passenger: "</span>+rs.getString(<span class="st">"passenger"</span>)+<span class="st">"&lt;br&gt;"</span>);
-                    out.println(<span class="st">"Train: "</span>+rs.getString(<span class="st">"train"</span>)+<span class="st">"&lt;br&gt;"</span>);
-                    out.println(<span class="st">"Route: "</span>+rs.getString(<span class="st">"from_stn"</span>)+<span class="st">" → "</span>+rs.getString(<span class="st">"to_stn"</span>)+<span class="st">"&lt;br&gt;"</span>);
-                    out.println(<span class="st">"&lt;b&gt;Status: "</span>+rs.getString(<span class="st">"status"</span>)+<span class="st">"&lt;/b&gt;&lt;/p&gt;"</span>);
-                } <span class="kw">else</span> out.println(<span class="st">"&lt;p&gt;PNR not found.&lt;/p&gt;"</span>);
-            }
-        } <span class="kw">catch</span> (<span class="ty">SQLException</span> ex) { out.println(<span class="st">"DB Error: "</span>+ex.getMessage()); }
-        out.println(<span class="st">"&lt;/body&gt;&lt;/html&gt;"</span>);
-    }
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p8-ht">
-<pre><code><span class="cm">&lt;!-- index.html — landing form --&gt;</span>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;&lt;head&gt;&lt;title&gt;College Portal&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-  &lt;h2&gt;Student Result Status&lt;/h2&gt;
-  &lt;form action="ResultServlet" method="post"&gt;
-    &lt;input type="hidden" name="type" value="result"&gt;
-    Roll No: &lt;input type="text" name="rollno" placeholder="e.g. CS101"&gt;
-    &lt;button type="submit"&gt;Check Result&lt;/button&gt;
-  &lt;/form&gt;
-
-  &lt;hr&gt;
-  &lt;h2&gt;PNR Number Enquiry&lt;/h2&gt;
-  &lt;form action="ResultServlet" method="post"&gt;
-    &lt;input type="hidden" name="type" value="pnr"&gt;
-    PNR: &lt;input type="text" name="pnr" placeholder="e.g. 1234567890"&gt;
-    &lt;button type="submit"&gt;Check PNR&lt;/button&gt;
-  &lt;/form&gt;
-&lt;/body&gt;&lt;/html&gt;</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Browser Output (CS101)</div>
-  <pre>Result for Alice
-Total: 452 | Avg: 90.4 | Grade: O
-
-PNR: 1234567890
-Passenger: Ravi Kumar | Train: 12345 Chennai Express
-Route: Chennai → Mumbai | Status: CONFIRMED</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 9 – Java Bean -->
-<section class="program" id="p9">
-  <div class="program-header">
-    <div class="prog-num">09</div>
-    <h2>Creation and Usage of Java Bean</h2>
-    <span class="tag">JavaBeans</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>EmployeeBean.java</span><button class="copy-btn" onclick="copyBlock('p9-code')">copy</button></div>
-    <div id="p9-code">
-<pre><code><span class="kw">import</span> java.io.*;
-<span class="kw">import</span> java.beans.*;
-
-<span class="cm">// ── Java Bean (must be Serializable + no-arg constructor + getters/setters) ──</span>
-<span class="kw">public class</span> <span class="ty">EmployeeBean</span> <span class="kw">implements</span> <span class="ty">Serializable</span> {
-
-    <span class="kw">private static final long</span> serialVersionUID = <span class="nm">1L</span>;
-
-    <span class="kw">private int</span>    empId;
-    <span class="kw">private</span> <span class="ty">String</span>  name;
-    <span class="kw">private</span> <span class="ty">String</span>  department;
-    <span class="kw">private double</span> salary;
-    <span class="kw">private</span> <span class="ty">String</span>  email;
-
-    <span class="cm">// Mandatory no-arg constructor</span>
-    <span class="kw">public</span> <span class="ty">EmployeeBean</span>() {}
-
-    <span class="kw">public</span> <span class="ty">EmployeeBean</span>(<span class="kw">int</span> id, <span class="ty">String</span> name, <span class="ty">String</span> dept, <span class="kw">double</span> sal, <span class="ty">String</span> email) {
-        <span class="kw">this</span>.empId=id; <span class="kw">this</span>.name=name; <span class="kw">this</span>.department=dept;
-        <span class="kw">this</span>.salary=sal; <span class="kw">this</span>.email=email;
-    }
-
-    <span class="cm">// Getters</span>
-    <span class="kw">public int</span>    <span class="fn">getEmpId</span>()      { <span class="kw">return</span> empId; }
-    <span class="kw">public</span> <span class="ty">String</span>  <span class="fn">getName</span>()       { <span class="kw">return</span> name; }
-    <span class="kw">public</span> <span class="ty">String</span>  <span class="fn">getDepartment</span>() { <span class="kw">return</span> department; }
-    <span class="kw">public double</span> <span class="fn">getSalary</span>()     { <span class="kw">return</span> salary; }
-    <span class="kw">public</span> <span class="ty">String</span>  <span class="fn">getEmail</span>()      { <span class="kw">return</span> email; }
-
-    <span class="cm">// Setters with validation</span>
-    <span class="kw">public void</span> <span class="fn">setEmpId</span>(<span class="kw">int</span> id)          { <span class="kw">this</span>.empId = id; }
-    <span class="kw">public void</span> <span class="fn">setName</span>(<span class="ty">String</span> n)          { <span class="kw">this</span>.name = n; }
-    <span class="kw">public void</span> <span class="fn">setDepartment</span>(<span class="ty">String</span> d)    { <span class="kw">this</span>.department = d; }
-    <span class="kw">public void</span> <span class="fn">setSalary</span>(<span class="kw">double</span> s)        {
-        <span class="kw">if</span> (s &lt; <span class="nm">0</span>) <span class="kw">throw new</span> <span class="ty">IllegalArgumentException</span>(<span class="st">"Salary cannot be negative"</span>);
-        <span class="kw">this</span>.salary = s;
-    }
-    <span class="kw">public void</span> <span class="fn">setEmail</span>(<span class="ty">String</span> em) {
-        <span class="kw">if</span> (!em.contains(<span class="st">"@"</span>)) <span class="kw">throw new</span> <span class="ty">IllegalArgumentException</span>(<span class="st">"Invalid email"</span>);
-        <span class="kw">this</span>.email = em;
-    }
-
-    <span class="kw">public</span> <span class="ty">String</span> <span class="fn">toString</span>() {
-        <span class="kw">return</span> <span class="ty">String</span>.format(<span class="st">"EmpID:%-5d | %-12s | %-15s | Salary: %8.2f | %s"</span>,
-                             empId, name, department, salary, email);
-    }
-}
-
-<span class="cm">// ── BeanDemo.java — uses Introspector to explore bean properties ───────────</span>
-<span class="kw">import</span> java.beans.*;
-
-<span class="kw">public class</span> <span class="ty">BeanDemo</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        <span class="ty">EmployeeBean</span> e1 = <span class="kw">new</span> <span class="ty">EmployeeBean</span>(<span class="nm">101</span>,<span class="st">"Alice"</span>,<span class="st">"IT"</span>,<span class="nm">75000</span>,<span class="st">"alice@kit.edu"</span>);
-        <span class="ty">EmployeeBean</span> e2 = <span class="kw">new</span> <span class="ty">EmployeeBean</span>(); e2.setEmpId(<span class="nm">102</span>);
-        e2.setName(<span class="st">"Bob"</span>); e2.setDepartment(<span class="st">"HR"</span>); e2.setSalary(<span class="nm">60000</span>); e2.setEmail(<span class="st">"bob@kit.edu"</span>);
-        System.out.println(e1);
-        System.out.println(e2);
-
-        <span class="cm">// Introspect via BeanInfo</span>
-        <span class="ty">BeanInfo</span> info = <span class="ty">Introspector</span>.getBeanInfo(<span class="ty">EmployeeBean</span>.<span class="kw">class</span>);
-        System.out.println(<span class="st">"\n--- Bean Properties ---"</span>);
-        <span class="kw">for</span> (<span class="ty">PropertyDescriptor</span> pd : info.getPropertyDescriptors())
-            System.out.printf(<span class="st">"%-15s [%s]%n"</span>, pd.getName(), pd.getPropertyType().getSimpleName());
-
-        <span class="cm">// Serialize and Deserialize</span>
-        <span class="kw">try</span> (<span class="ty">ObjectOutputStream</span> oos = <span class="kw">new</span> <span class="ty">ObjectOutputStream</span>(<span class="kw">new</span> <span class="ty">FileOutputStream</span>(<span class="st">"emp.ser"</span>)))
-             { oos.writeObject(e1); }
-        <span class="kw">try</span> (<span class="ty">ObjectInputStream</span>  ois = <span class="kw">new</span> <span class="ty">ObjectInputStream</span>(<span class="kw">new</span>  <span class="ty">FileInputStream</span>(<span class="st">"emp.ser"</span>)))
-             { <span class="ty">EmployeeBean</span> restored = (<span class="ty">EmployeeBean</span>) ois.readObject();
-               System.out.println(<span class="st">"\nRestored: "</span> + restored); }
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Output</div>
-  <pre>EmpID:101   | Alice        | IT              | Salary: 75000.00 | alice@kit.edu
---- Bean Properties ---
-class           [Class] | department [String] | email [String] | empId [int] ...
-Restored: EmpID:101   | Alice  | IT  | Salary: 75000.00 | alice@kit.edu</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 10 – HashMap Phone Book -->
-<section class="program" id="p10">
-  <div class="program-header">
-    <div class="prog-num">10</div>
-    <h2>Phone Number Search using Contact Name – HashMap</h2>
-    <span class="tag">Collections</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>PhoneBook.java</span><button class="copy-btn" onclick="copyBlock('p10-code')">copy</button></div>
-    <div id="p10-code">
-<pre><code><span class="kw">import</span> java.util.*;
-
-<span class="kw">public class</span> <span class="ty">PhoneBook</span> {
-
-    <span class="kw">private</span> <span class="ty">HashMap</span>&lt;<span class="ty">String</span>, <span class="ty">List</span>&lt;<span class="ty">String</span>&gt;&gt; contacts = <span class="kw">new</span> <span class="ty">HashMap</span>&lt;&gt;();
-
-    <span class="cm">// Add a contact (supports multiple numbers per name)</span>
-    <span class="kw">void</span> <span class="fn">addContact</span>(<span class="ty">String</span> name, <span class="ty">String</span> phone) {
-        contacts.computeIfAbsent(name, k -&gt; <span class="kw">new</span> <span class="ty">ArrayList</span>&lt;&gt;()).add(phone);
-        System.out.println(<span class="st">"Added: "</span> + name + <span class="st">" → "</span> + phone);
-    }
-
-    <span class="cm">// Search by exact name</span>
-    <span class="kw">void</span> <span class="fn">search</span>(<span class="ty">String</span> name) {
-        <span class="ty">List</span>&lt;<span class="ty">String</span>&gt; nums = contacts.get(name);
-        <span class="kw">if</span> (nums != <span class="kw">null</span>)
-            System.out.println(<span class="st">"📞 "</span> + name + <span class="st">" → "</span> + nums);
-        <span class="kw">else</span>
-            System.out.println(<span class="st">"Contact '"</span> + name + <span class="st">"' not found."</span>);
-    }
-
-    <span class="cm">// Partial-match search</span>
-    <span class="kw">void</span> <span class="fn">partialSearch</span>(<span class="ty">String</span> query) {
-        System.out.println(<span class="st">"\n─── Partial Search: '"</span> + query + <span class="st">"' ───"</span>);
-        contacts.entrySet().stream()
-            .filter(e -&gt; e.getKey().toLowerCase().contains(query.toLowerCase()))
-            .forEach(e -&gt; System.out.println(e.getKey() + <span class="st">" → "</span> + e.getValue()));
-    }
-
-    <span class="cm">// Delete a contact</span>
-    <span class="kw">void</span> <span class="fn">delete</span>(<span class="ty">String</span> name) {
-        <span class="kw">if</span> (contacts.remove(name) != <span class="kw">null</span>)
-            System.out.println(<span class="st">"Deleted: "</span> + name);
-        <span class="kw">else</span>
-            System.out.println(<span class="st">"Not found: "</span> + name);
-    }
-
-    <span class="cm">// Display all contacts sorted</span>
-    <span class="kw">void</span> <span class="fn">displayAll</span>() {
-        System.out.println(<span class="st">"\n─── All Contacts (" + contacts.size() + ") ───"</span>);
-        <span class="kw">new</span> <span class="ty">TreeMap</span>&lt;&gt;(contacts).forEach((k,v) -&gt;
-            System.out.printf(<span class="st">"%-20s %s%n"</span>, k, v));
-    }
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-        <span class="ty">PhoneBook</span> pb = <span class="kw">new</span> <span class="ty">PhoneBook</span>();
-        pb.addContact(<span class="st">"Alice Johnson"</span>,  <span class="st">"9876543210"</span>);
-        pb.addContact(<span class="st">"Bob Smith"</span>,      <span class="st">"9123456789"</span>);
-        pb.addContact(<span class="st">"Carol White"</span>,    <span class="st">"9000011111"</span>);
-        pb.addContact(<span class="st">"Alice Johnson"</span>,  <span class="st">"9876543999"</span>); <span class="cm">// second number</span>
-        pb.addContact(<span class="st">"David Brown"</span>,    <span class="st">"8888888888"</span>);
-
-        System.out.println();
-        pb.search(<span class="st">"Bob Smith"</span>);
-        pb.search(<span class="st">"Unknown"</span>);
-        pb.partialSearch(<span class="st">"alice"</span>);
-
-        pb.delete(<span class="st">"Carol White"</span>);
-        pb.displayAll();
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Output</div>
-  <pre>📞 Bob Smith → [9123456789]
-Contact 'Unknown' not found.
-─── Partial Search: 'alice' ───
-Alice Johnson → [9876543210, 9876543999]
-─── All Contacts (3) ───
-Alice Johnson        [9876543210, 9876543999]
-Bob Smith            [9123456789]
-David Brown          [8888888888]</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 11 – Duplicate Email using Set -->
-<section class="program" id="p11">
-  <div class="program-header">
-    <div class="prog-num">11</div>
-    <h2>Find Duplicate Emails using Set Interface</h2>
-    <span class="tag">Collections / Set</span>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span>DuplicateEmailFinder.java</span><button class="copy-btn" onclick="copyBlock('p11-code')">copy</button></div>
-    <div id="p11-code">
-<pre><code><span class="kw">import</span> java.util.*;
-<span class="kw">import</span> java.util.stream.*;
-
-<span class="kw">public class</span> <span class="ty">DuplicateEmailFinder</span> {
-
-    <span class="cm">// Method 1: Using HashSet to detect duplicates</span>
-    <span class="kw">static</span> <span class="ty">Set</span>&lt;<span class="ty">String</span>&gt; <span class="fn">findDuplicates</span>(<span class="ty">List</span>&lt;<span class="ty">String</span>&gt; emails) {
-        <span class="ty">Set</span>&lt;<span class="ty">String</span>&gt; seen  = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;&gt;();
-        <span class="ty">Set</span>&lt;<span class="ty">String</span>&gt; dupes = <span class="kw">new</span> <span class="ty">LinkedHashSet</span>&lt;&gt;(); <span class="cm">// preserves insertion order</span>
-        <span class="kw">for</span> (<span class="ty">String</span> email : emails)
-            <span class="kw">if</span> (!seen.add(email.toLowerCase()))
-                dupes.add(email.toLowerCase());
-        <span class="kw">return</span> dupes;
-    }
-
-    <span class="cm">// Method 2: Using streams + groupingBy (frequency count)</span>
-    <span class="kw">static</span> <span class="ty">Map</span>&lt;<span class="ty">String</span>,<span class="ty">Long</span>&gt; <span class="fn">frequencyMap</span>(<span class="ty">List</span>&lt;<span class="ty">String</span>&gt; emails) {
-        <span class="kw">return</span> emails.stream()
-            .map(<span class="ty">String</span>::toLowerCase)
-            .collect(<span class="ty">Collectors</span>.groupingBy(e -&gt; e, <span class="ty">Collectors</span>.counting()));
-    }
-
-    <span class="cm">// Method 3: Unique emails only (TreeSet = sorted)</span>
-    <span class="kw">static</span> <span class="ty">Set</span>&lt;<span class="ty">String</span>&gt; <span class="fn">uniqueEmails</span>(<span class="ty">List</span>&lt;<span class="ty">String</span>&gt; emails) {
-        <span class="kw">return</span> emails.stream()
-            .map(<span class="ty">String</span>::toLowerCase)
-            .collect(<span class="ty">Collectors</span>.toCollection(<span class="ty">TreeSet</span>::<span class="kw">new</span>));
-    }
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
-
-        <span class="ty">List</span>&lt;<span class="ty">String</span>&gt; emails = <span class="ty">Arrays</span>.asList(
-            <span class="st">"alice@kit.edu"</span>, <span class="st">"bob@gmail.com"</span>,  <span class="st">"ALICE@KIT.EDU"</span>,
-            <span class="st">"carol@yahoo.com"</span>,<span class="st">"bob@gmail.com"</span>,  <span class="st">"dave@hotmail.com"</span>,
-            <span class="st">"carol@yahoo.com"</span>,<span class="st">"eve@outlook.com"</span>, <span class="st">"alice@kit.edu"</span>
-        );
-
-        System.out.println(<span class="st">"Input  (" + emails.size() + ") : "</span> + emails);
-
-        <span class="ty">Set</span>&lt;<span class="ty">String</span>&gt; dupes = findDuplicates(emails);
-        System.out.println(<span class="st">"\nDuplicates (" + dupes.size() + "):"</span>);
-        dupes.forEach(e -&gt; System.out.println(<span class="st">"  ⚠  "</span> + e));
-
-        System.out.println(<span class="st">"\nFrequency Map:"</span>);
-        frequencyMap(emails).entrySet().stream()
-            .sorted(Map.Entry.comparingByKey())
-            .forEach(en -&gt; System.out.printf(<span class="st">"  %-25s × %d%n"</span>, en.getKey(), en.getValue()));
-
-        System.out.println(<span class="st">"\nUnique Emails (sorted):"</span>);
-        uniqueEmails(emails).forEach(e -&gt; System.out.println(<span class="st">"  ✓ "</span> + e));
-
-        System.out.printf(<span class="st">"%nTotal: %d → Unique: %d → Duplicates: %d%n"</span>,
-            emails.size(), uniqueEmails(emails).size(), dupes.size());
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Output</div>
-  <pre>Duplicates (3):
-  ⚠  alice@kit.edu
-  ⚠  bob@gmail.com
-  ⚠  carol@yahoo.com
-
-Frequency Map:
-  alice@kit.edu             × 3
-  bob@gmail.com             × 2
-  carol@yahoo.com           × 2
-  dave@hotmail.com          × 1
-  eve@outlook.com           × 1
-
-Total: 9 → Unique: 5 → Duplicates: 3</pre></div>
-</section><hr class="divider">
-
-<!-- PROGRAM 12 – FTP using Sockets -->
-<section class="program" id="p12">
-  <div class="program-header">
-    <div class="prog-num">12</div>
-    <h2>FTP using Sockets</h2>
-    <span class="tag">Networking</span>
-  </div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab(this,'p12','fs')">FTP Server</button>
-    <button class="tab-btn" onclick="switchTab(this,'p12','fc')">FTP Client</button>
-  </div>
-  <div class="code-wrap">
-    <div class="code-toolbar"><span id="p12-label">FTPServer.java</span><button class="copy-btn" onclick="copyCode('p12-active')">copy</button></div>
-
-    <div class="code-panel active" id="p12-fs">
-<pre><code><span class="kw">import</span> java.io.*;
-<span class="kw">import</span> java.net.*;
-
-<span class="kw">public class</span> <span class="ty">FTPServer</span> {
-
-    <span class="kw">static final int</span> PORT = <span class="nm">5000</span>;
-    <span class="kw">static final</span> <span class="ty">String</span> SERVER_DIR = <span class="st">"server_files/"</span>;
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">IOException</span> {
-        <span class="kw">new</span> <span class="ty">File</span>(SERVER_DIR).mkdirs();
-        <span class="ty">ServerSocket</span> ss = <span class="kw">new</span> <span class="ty">ServerSocket</span>(PORT);
-        System.out.println(<span class="st">"FTP Server started on port "</span> + PORT);
-
-        <span class="kw">while</span> (<span class="kw">true</span>) {
-            <span class="ty">Socket</span> client = ss.accept();
-            System.out.println(<span class="st">"Client connected: "</span> + client.getInetAddress());
-            <span class="kw">new</span> <span class="ty">Thread</span>(() -&gt; <span class="fn">handleClient</span>(client)).start();
-        }
-    }
-
-    <span class="kw">static void</span> <span class="fn">handleClient</span>(<span class="ty">Socket</span> client) {
-        <span class="kw">try</span> (
-            <span class="ty">DataInputStream</span>  dis = <span class="kw">new</span> <span class="ty">DataInputStream</span>(client.getInputStream());
-            <span class="ty">DataOutputStream</span> dos = <span class="kw">new</span> <span class="ty">DataOutputStream</span>(client.getOutputStream())
-        ) {
-            <span class="kw">while</span> (<span class="kw">true</span>) {
-                <span class="ty">String</span> cmd = dis.readUTF();
-                System.out.println(<span class="st">"CMD: "</span> + cmd);
-
-                <span class="kw">if</span> (cmd.equalsIgnoreCase(<span class="st">"QUIT"</span>)) { dos.writeUTF(<span class="st">"Bye!"</span>); <span class="kw">break</span>; }
-
-                <span class="kw">else if</span> (cmd.startsWith(<span class="st">"PUT"</span>)) {         <span class="cm">// Upload</span>
-                    <span class="ty">String</span> fname = cmd.substring(<span class="nm">4</span>).trim();
-                    <span class="kw">long</span>   size  = dis.readLong();
-                    <span class="kw">byte</span>[] buf   = <span class="kw">new byte</span>[<span class="nm">4096</span>];
-                    <span class="kw">try</span> (<span class="ty">FileOutputStream</span> fos = <span class="kw">new</span> <span class="ty">FileOutputStream</span>(SERVER_DIR+fname)) {
-                        <span class="kw">long</span> remaining = size;
-                        <span class="kw">while</span> (remaining > <span class="nm">0</span>) {
-                            <span class="kw">int</span> read = dis.read(buf, <span class="nm">0</span>, (<span class="kw">int</span>)Math.min(buf.length, remaining));
-                            fos.write(buf, <span class="nm">0</span>, read); remaining -= read;
-                        }
-                    }
-                    dos.writeUTF(<span class="st">"PUT_OK: "</span> + fname + <span class="st">" ("</span> + size + <span class="st">" bytes)"</span>);
-                }
-
-                <span class="kw">else if</span> (cmd.startsWith(<span class="st">"GET"</span>)) {         <span class="cm">// Download</span>
-                    <span class="ty">String</span> fname = cmd.substring(<span class="nm">4</span>).trim();
-                    <span class="ty">File</span>   f = <span class="kw">new</span> <span class="ty">File</span>(SERVER_DIR + fname);
-                    <span class="kw">if</span> (!f.exists()) { dos.writeUTF(<span class="st">"ERR: File not found"</span>); <span class="kw">continue</span>; }
-                    dos.writeUTF(<span class="st">"GET_OK"</span>);
-                    dos.writeLong(f.length());
-                    <span class="kw">try</span> (<span class="ty">FileInputStream</span> fis = <span class="kw">new</span> <span class="ty">FileInputStream</span>(f)) {
-                        <span class="kw">byte</span>[] buf = <span class="kw">new byte</span>[<span class="nm">4096</span>]; <span class="kw">int</span> n;
-                        <span class="kw">while</span> ((n = fis.read(buf)) != -<span class="nm">1</span>) dos.write(buf, <span class="nm">0</span>, n);
-                    }
-                }
-
-                <span class="kw">else if</span> (cmd.equalsIgnoreCase(<span class="st">"LIST"</span>)) {    <span class="cm">// List files</span>
-                    <span class="ty">File</span>[] files = <span class="kw">new</span> <span class="ty">File</span>(SERVER_DIR).listFiles();
-                    <span class="ty">StringBuilder</span> sb = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
-                    <span class="kw">if</span> (files != <span class="kw">null</span>)
-                        <span class="kw">for</span> (<span class="ty">File</span> fi : files) sb.append(fi.getName()).append(<span class="st">"  "</span>).append(fi.length()).append(<span class="st">"B\n"</span>);
-                    dos.writeUTF(sb.length()==<span class="nm">0</span>?<span class="st">"(empty)"</span>:sb.toString());
-                }
-
-                <span class="kw">else</span> dos.writeUTF(<span class="st">"ERR: Unknown command"</span>);
-            }
-        } <span class="kw">catch</span> (<span class="ty">Exception</span> e) { e.printStackTrace(); }
-    }
-}</code></pre>
-    </div>
-
-    <div class="code-panel hidden" id="p12-fc">
-<pre><code><span class="kw">import</span> java.io.*;
-<span class="kw">import</span> java.net.*;
-
-<span class="kw">public class</span> <span class="ty">FTPClient</span> {
-
-    <span class="kw">static</span> <span class="ty">DataInputStream</span>  dis;
-    <span class="kw">static</span> <span class="ty">DataOutputStream</span> dos;
-
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        <span class="ty">Socket</span> sock = <span class="kw">new</span> <span class="ty">Socket</span>(<span class="st">"localhost"</span>, <span class="nm">5000</span>);
-        dis = <span class="kw">new</span> <span class="ty">DataInputStream</span>(sock.getInputStream());
-        dos = <span class="kw">new</span> <span class="ty">DataOutputStream</span>(sock.getOutputStream());
-        System.out.println(<span class="st">"Connected to FTP Server."</span>);
-
-        <span class="cm">// 1. Upload a file</span>
-        <span class="fn">uploadFile</span>(<span class="st">"test.txt"</span>);
-
-        <span class="cm">// 2. List files on server</span>
-        dos.writeUTF(<span class="st">"LIST"</span>);
-        System.out.println(<span class="st">"\n=== Server Files ===\n"</span> + dis.readUTF());
-
-        <span class="cm">// 3. Download a file</span>
-        <span class="fn">downloadFile</span>(<span class="st">"test.txt"</span>, <span class="st">"downloaded_test.txt"</span>);
-
-        <span class="cm">// 4. Quit</span>
-        dos.writeUTF(<span class="st">"QUIT"</span>);
-        System.out.println(dis.readUTF());
-        sock.close();
-    }
-
-    <span class="kw">static void</span> <span class="fn">uploadFile</span>(<span class="ty">String</span> filename) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        <span class="ty">File</span> f = <span class="kw">new</span> <span class="ty">File</span>(filename);
-        <span class="kw">if</span> (!f.exists()) {
-            <span class="cm">// Create sample file for demo</span>
-            <span class="kw">try</span>(<span class="ty">PrintWriter</span> pw = <span class="kw">new</span> <span class="ty">PrintWriter</span>(f)) {
-                pw.println(<span class="st">"Hello from FTP Client!"</span>);
-                pw.println(<span class="st">"This file was transferred via sockets."</span>);
-            }
-        }
-        dos.writeUTF(<span class="st">"PUT "</span> + filename);
-        dos.writeLong(f.length());
-        <span class="kw">try</span> (<span class="ty">FileInputStream</span> fis = <span class="kw">new</span> <span class="ty">FileInputStream</span>(f)) {
-            <span class="kw">byte</span>[] buf = <span class="kw">new byte</span>[<span class="nm">4096</span>]; <span class="kw">int</span> n;
-            <span class="kw">while</span> ((n = fis.read(buf)) != -<span class="nm">1</span>) dos.write(buf, <span class="nm">0</span>, n);
-        }
-        System.out.println(<span class="st">"Upload: "</span> + dis.readUTF());
-    }
-
-    <span class="kw">static void</span> <span class="fn">downloadFile</span>(<span class="ty">String</span> remote, <span class="ty">String</span> local) <span class="kw">throws</span> <span class="ty">Exception</span> {
-        dos.writeUTF(<span class="st">"GET "</span> + remote);
-        <span class="ty">String</span> resp = dis.readUTF();
-        <span class="kw">if</span> (resp.startsWith(<span class="st">"ERR"</span>)) { System.out.println(resp); <span class="kw">return</span>; }
-        <span class="kw">long</span> size = dis.readLong();
-        <span class="kw">try</span> (<span class="ty">FileOutputStream</span> fos = <span class="kw">new</span> <span class="ty">FileOutputStream</span>(local)) {
-            <span class="kw">byte</span>[] buf = <span class="kw">new byte</span>[<span class="nm">4096</span>]; <span class="kw">long</span> remaining = size;
-            <span class="kw">while</span> (remaining > <span class="nm">0</span>) {
-                <span class="kw">int</span> read = dis.read(buf, <span class="nm">0</span>, (<span class="kw">int</span>)Math.min(buf.length, remaining));
-                fos.write(buf, <span class="nm">0</span>, read); remaining -= read;
-            }
-        }
-        System.out.println(<span class="st">"Download complete: "</span> + local + <span class="st">" ("</span> + size + <span class="st">" bytes)"</span>);
-    }
-}</code></pre>
-    </div>
-  </div>
-  <div class="output"><div class="output-header">Console Output</div>
-  <pre>FTP Server started on port 5000
-Client connected: /127.0.0.1
-Upload: PUT_OK: test.txt (62 bytes)
-
-=== Server Files ===
-test.txt  62B
-
-Download complete: downloaded_test.txt (62 bytes)
-Bye!</pre></div>
-</section>
-
-</main>
-
-<script>
-function switchTab(btn, prog, tab) {
-  const wrap = btn.closest('.program');
-  wrap.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  wrap.querySelectorAll('.code-panel').forEach(p => { p.classList.remove('active'); p.classList.add('hidden'); });
-  btn.classList.add('active');
-  const panel = document.getElementById(prog + '-' + tab);
-  if (panel) { panel.classList.add('active'); panel.classList.remove('hidden'); }
-}
-
-function copyCode(activeClass) {
-  const panel = document.querySelector('.code-panel.active');
-  if (panel) navigator.clipboard.writeText(panel.innerText).then(() => showCopied(event.target));
-}
-
-function copyBlock(id) {
-  const el = document.getElementById(id);
-  if (el) navigator.clipboard.writeText(el.innerText).then(() => showCopied(event.target));
-}
-
-function showCopied(btn) {
-  const orig = btn.textContent;
-  btn.textContent = 'copied ✓';
-  btn.style.color = '#10b981';
-  setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1500);
-}
-</script>
+
+INSERT INTO Employee VALUES (101, 'Raj', 40000, 'HR');
+
+UPDATE Employee
+SET Salary = 50000
+WHERE Emp_ID = 101;
+
+DELETE FROM Employee
+WHERE Emp_ID = 101;
+
+SELECT * FROM Employee;
+
+SELECT Name, Salary
+FROM Employee
+WHERE Salary > (
+    SELECT AVG(Salary) FROM Employee
+);
+</pre>
+</div>
+
+<div class="program">
+<h2>3. Data Control Commands</h2>
+<pre>
+-- Create User
+CREATE USER 'student1'@'localhost'
+IDENTIFIED BY 'pass123';
+
+-- Grant Permissions
+GRANT SELECT, INSERT, UPDATE
+ON CollegeDB.* TO 'student1'@'localhost';
+
+-- Show Granted Permissions
+SHOW GRANTS FOR 'student1'@'localhost';
+
+-- Revoke Permission
+REVOKE UPDATE
+ON CollegeDB.* FROM 'student1'@'localhost';
+
+-- Apply Changes
+FLUSH PRIVILEGES;
+</pre>
+</div>
+
+<div class="program">
+<h2>4. Cursor, Procedure and Function</h2>
+<pre>
+DECLARE
+    CURSOR emp_cursor IS
+    SELECT Name, Salary FROM Employee;
+
+    v_name Employee.Name%TYPE;
+    v_salary Employee.Salary%TYPE;
+BEGIN
+    OPEN emp_cursor;
+
+    LOOP
+        FETCH emp_cursor INTO v_name, v_salary;
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(v_name || ' ' || v_salary);
+    END LOOP;
+
+    CLOSE emp_cursor;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE ShowEmployee
+IS
+BEGIN
+    SELECT * FROM Employee;
+END;
+/
+
+CREATE OR REPLACE FUNCTION AnnualSalary(sal NUMBER)
+RETURN NUMBER
+IS
+BEGIN
+    RETURN sal * 12;
+END;
+/
+</pre>
+</div>
+
+<div class="program">
+<h2>5. Embedded SQL / Database Connectivity using Python</h2>
+<pre>
+import mysql.connector
+
+# Connect to MySQL
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="CollegeDB"
+)
+
+cursor = conn.cursor()
+
+# Create Table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+)
+""")
+
+# Insert Student
+sql = "INSERT INTO students VALUES (%s, %s, %s)"
+values = (1, "Arun", 90)
+
+cursor.execute(sql, values)
+conn.commit()
+
+# Retrieve Data
+cursor.execute("SELECT * FROM students")
+
+for row in cursor.fetchall():
+    print(row)
+
+conn.close()
+</pre>
+</div>
+
+<div class="program">
+<h2>6. Trigger Example</h2>
+<pre>
+CREATE TABLE Emp_Log (
+    Emp_ID INT,
+    Action VARCHAR(20)
+);
+
+CREATE TRIGGER emp_trigger
+AFTER INSERT
+ON Employee
+FOR EACH ROW
+BEGIN
+    INSERT INTO Emp_Log
+    VALUES (:NEW.Emp_ID, 'Inserted');
+END;
+/
+</pre>
+</div>
+
+<div class="program">
+<h2>7. MySQL Database and Table Creation</h2>
+<pre>
+CREATE DATABASE CollegeDB;
+
+USE CollegeDB;
+
+CREATE TABLE Course (
+    Course_ID INT PRIMARY KEY,
+    Course_Name VARCHAR(50),
+    Fees INT
+);
+
+INSERT INTO Course VALUES (1, 'Java', 5000);
+
+SELECT * FROM Course;
+</pre>
+</div>
+
+<div class="program">
+<h2>8. MySQL Replication</h2>
+<pre>
+SHOW MASTER STATUS;
+
+CREATE USER 'repl'@'%' IDENTIFIED BY 'repl123';
+
+GRANT REPLICATION SLAVE
+ON *.* TO 'repl'@'%';
+
+FLUSH PRIVILEGES;
+
+CHANGE MASTER TO
+MASTER_HOST='192.168.1.10',
+MASTER_USER='repl',
+MASTER_PASSWORD='repl123',
+MASTER_LOG_FILE='mysql-bin.000001',
+MASTER_LOG_POS=120;
+
+START SLAVE;
+
+SHOW SLAVE STATUS\G
+</pre>
+</div>
+
+<div class="program">
+<h2>9. MongoDB CRUD Operations</h2>
+<pre>
+use CollegeDB
+
+db.student.insertOne({
+    id: 1,
+    name: "Arun",
+    dept: "CSE"
+})
+
+db.student.find()
+
+db.student.updateOne(
+    {id:1},
+    {$set:{dept:"IT"}}
+)
+
+db.student.deleteOne({id:1})
+
+db.student.createIndex({name:1})
+
+sh.enableSharding("CollegeDB")
+</pre>
+</div>
+
+<div class="program">
+<h2>10. XML Database and XML Table</h2>
+<pre>
+CREATE TABLE BookXML (
+    Book_ID INT,
+    Book_Details XML
+);
+
+INSERT INTO BookXML VALUES (
+    1,
+    '&lt;book&gt;
+        &lt;title&gt;DBMS&lt;/title&gt;
+        &lt;author&gt;Navathe&lt;/author&gt;
+     &lt;/book&gt;'
+);
+
+SELECT * FROM BookXML;
+</pre>
+</div>
+
+<div class="program">
+<h2>11. Forms, Menus and Reports</h2>
+<pre>
+import mysql.connector
+
+# Connect to MySQL
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="college"
+)
+
+cursor = conn.cursor()
+
+# Create Table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+)
+""")
+
+# Insert Student
+def insert_student():
+    sid = int(input("Enter Student ID: "))
+    name = input("Enter Student Name: ")
+    marks = int(input("Enter Marks: "))
+
+    sql = "INSERT INTO students VALUES (%s, %s, %s)"
+    values = (sid, name, marks)
+
+    cursor.execute(sql, values)
+    conn.commit()
+
+    print("Student Inserted Successfully\n")
+
+
+# Get All Students
+def get_students():
+    cursor.execute("SELECT * FROM students")
+
+    data = cursor.fetchall()
+
+    print("\n--- Student List ---")
+
+    for row in data:
+        print("ID:", row[0], "| Name:", row[1], "| Marks:", row[2])
+
+    print()
+
+
+# Get Marks by Student ID
+def get_marks():
+    sid = int(input("Enter Student ID: "))
+
+    sql = "SELECT name, marks FROM students WHERE id=%s"
+
+    cursor.execute(sql, (sid,))
+
+    data = cursor.fetchone()
+
+    if data:
+        print("\nName:", data[0])
+        print("Marks:", data[1], "\n")
+    else:
+        print("Student Not Found\n")
+
+
+# Menu
+while True:
+
+    print("===== STUDENT MANAGEMENT =====")
+    print("1. Insert Student")
+    print("2. Get All Students")
+    print("3. Get Student Marks")
+    print("4. Exit")
+
+    choice = input("Enter Choice: ")
+
+    if choice == '1':
+        insert_student()
+
+    elif choice == '2':
+        get_students()
+
+    elif choice == '3':
+        get_marks()
+
+    elif choice == '4':
+        break
+
+    else:
+        print("Invalid Choice\n")
+
+# Close Connection
+conn.close()
+</pre>
+</div>
+
+<div class="program">
+<h2>12. Library Management SQL Query</h2>
+<pre>
+CREATE TABLE Publisher (
+    Pub_ID INT PRIMARY KEY,
+    Pub_Name VARCHAR(50)
+);
+
+CREATE TABLE Book (
+    Book_ID INT PRIMARY KEY,
+    Title VARCHAR(50),
+    Pub_ID INT,
+    Author VARCHAR(50),
+    FOREIGN KEY (Pub_ID)
+    REFERENCES Publisher(Pub_ID)
+);
+
+CREATE TABLE Library_Branch (
+    Branch_ID INT PRIMARY KEY,
+    Branch_Name VARCHAR(50)
+);
+
+CREATE TABLE Book_Copies (
+    Book_ID INT,
+    Branch_ID INT,
+    No_Of_Copies INT
+);
+
+SELECT
+    B.Book_ID,
+    B.Title,
+    P.Pub_Name,
+    B.Author,
+    L.Branch_Name,
+    BC.No_Of_Copies
+FROM Book B
+JOIN Publisher P
+ON B.Pub_ID = P.Pub_ID
+JOIN Book_Copies BC
+ON B.Book_ID = BC.Book_ID
+JOIN Library_Branch L
+ON BC.Branch_ID = L.Branch_ID;
+</pre>
+</div>
+
 </body>
 </html>
