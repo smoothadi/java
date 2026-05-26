@@ -117,42 +117,71 @@ FLUSH PRIVILEGES;
 <div class="program">
 <h2>4. Cursor, Procedure and Function</h2>
 <pre>
-DECLARE
-    CURSOR emp_cursor IS
-    SELECT Name, Salary FROM Employee;
+CREATE DATABASE schooldb;
+USE schooldb
 
-    v_name Employee.Name%TYPE;
-    v_salary Employee.Salary%TYPE;
+-- Create table
+CREATE TABLE Student1(
+   id INT,
+   name VARCHAR(20),
+   marks INT
+);
+
+-- Insert data
+INSERT INTO Student1 VALUES
+(1,'Ram',80),
+(2,'Sam',90);
+
+-- Function
+DELIMITER $$
+
+CREATE FUNCTION Bonus1(m INT)
+RETURNS INT
+DETERMINISTIC
 BEGIN
-    OPEN emp_cursor;
+   RETURN m + 5;
+END$$
 
-    LOOP
-        FETCH emp_cursor INTO v_name, v_salary;
-        EXIT WHEN emp_cursor%NOTFOUND;
+-- Procedure + Cursor
+CREATE PROCEDURE ShowData()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE s_name VARCHAR(20);
+    DECLARE s_marks INT;
 
-        DBMS_OUTPUT.PUT_LINE(v_name || ' ' || v_salary);
+    DECLARE c CURSOR FOR
+        SELECT name,marks FROM Student;
+
+    DECLARE CONTINUE HANDLER
+    FOR NOT FOUND SET done=1;
+
+    OPEN c;
+
+    myloop: LOOP
+
+        FETCH c INTO s_name,s_marks;
+
+        IF done=1 THEN
+            LEAVE myloop;
+        END IF;
+
+        SELECT CONCAT(
+            s_name,' ',
+            s_marks,' ',
+            Bonus(s_marks)
+        ) AS Result;
+
     END LOOP;
 
-    CLOSE emp_cursor;
-END;
-/
+    CLOSE c;
 
-CREATE OR REPLACE PROCEDURE ShowEmployee
-IS
-BEGIN
-    SELECT * FROM Employee;
-END;
-/
+END $$
 
-CREATE OR REPLACE FUNCTION AnnualSalary(sal NUMBER)
-RETURN NUMBER
-IS
-BEGIN
-    RETURN sal * 12;
-END;
-/
-</pre>
-</div>
+DELIMITER ;
+
+CALL ShowData();
+
+CALL ShowData();
 
 <div class="program">
 <h2>5. Embedded SQL / Database Connectivity using Python</h2>
