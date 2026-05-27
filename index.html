@@ -1159,49 +1159,100 @@ public class ResultServlet extends HttpServlet {
   </div>
 </section>
 
-    <!-- 9: Search Contact -->
-    <section class="section" id="s9">
-      <div class="section-header">
-        <div class="section-num green">9</div>
-        <div>
-          <div class="section-title">Search Contact</div>
-          <div class="section-subtitle">Collections · HashMap · Scanner · key lookup</div>
-        </div>
-      </div>
-      <div class="note"><strong>Concept:</strong> A <code>HashMap</code> maps contact names (keys) to phone numbers (values). The user enters a name and the program retrieves the matching number using <code>containsKey()</code> and <code>get()</code>.</div>
-      <div class="code-wrap">
-        <div class="code-bar">
-          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
-          <span class="filename">ContactSearchApp.java</span>
-          <span class="lang-tag">Java</span>
-        </div>
-        <pre><code><span class="kw">import</span> java.util.HashMap;
-<span class="kw">import</span> java.util.Scanner;
+  <!-- 9: Java Bean Program -->
+<section class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num green">9</div>
+    <div>
+      <div class="section-title">Java Bean Program</div>
+      <div class="section-subtitle">Java Beans · Getter · Setter · Object Creation</div>
+    </div>
+  </div>
 
-<span class="kw">public class</span> <span class="type">ContactSearchApp</span> {
-    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="type">String</span>[] args) {
+  <div class="note">
+    <strong>Concept:</strong> A Java Bean is a reusable Java class that contains private data members with public getter and setter methods. 
+    Here, the <code>StudentBeanJava</code> class stores student details and the <code>BeanDemo</code> class accesses them using methods.
+  </div>
 
-        <span class="type">HashMap</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt; contacts <span class="op">=</span> <span class="kw">new</span> <span class="type">HashMap</span>&lt;&gt;();
-        contacts.<span class="fn">put</span>(<span class="str">"Daniel"</span>,  <span class="str">"982222210"</span>);
-        contacts.<span class="fn">put</span>(<span class="str">"Bob"</span>,     <span class="str">"9123456780"</span>);
-        contacts.<span class="fn">put</span>(<span class="str">"Charlie"</span>, <span class="str">"9988776655"</span>);
+  <div class="code-wrap">
+    <div class="code-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="filename">StudentBeanJava.java</span>
+      <span class="lang-tag">Java</span>
+    </div>
 
-        <span class="kw">try</span> (<span class="type">Scanner</span> scanner <span class="op">=</span> <span class="kw">new</span> <span class="type">Scanner</span>(System.in)) {
-            System.out.<span class="fn">print</span>(<span class="str">"Enter contact name to search: "</span>);
-            <span class="type">String</span> name <span class="op">=</span> scanner.<span class="fn">nextLine</span>();
+<pre><code><span class="kw">public class</span> <span class="type">StudentBeanJava</span> {
 
-            <span class="kw">if</span> (contacts.<span class="fn">containsKey</span>(name)) {
-                System.out.<span class="fn">println</span>(<span class="str">"Phone Number: "</span> <span class="op">+</span> contacts.<span class="fn">get</span>(name));
-            } <span class="kw">else</span> {
-                System.out.<span class="fn">println</span>(<span class="str">"Contact not found!"</span>);
-            }
-        }
+    <span class="kw">private int</span> regno;
+    <span class="kw">private</span> <span class="type">String</span> name;
+    <span class="kw">private</span> <span class="type">String</span> department;
+
+    <span class="com">// Default Constructor</span>
+    <span class="kw">public</span> <span class="type">StudentBeanJava</span>() {
+
+    }
+
+    <span class="com">// Setter Methods</span>
+    <span class="kw">public void</span> <span class="fn">setRegno</span>(<span class="kw">int</span> regno) {
+        <span class="kw">this</span>.regno = regno;
+    }
+
+    <span class="kw">public void</span> <span class="fn">setName</span>(<span class="type">String</span> name) {
+        <span class="kw">this</span>.name = name;
+    }
+
+    <span class="kw">public void</span> <span class="fn">setDepartment</span>(<span class="type">String</span> department) {
+        <span class="kw">this</span>.department = department;
+    }
+
+    <span class="com">// Getter Methods</span>
+    <span class="kw">public int</span> <span class="fn">getRegno</span>() {
+        <span class="kw">return</span> regno;
+    }
+
+    <span class="kw">public</span> <span class="type">String</span> <span class="fn">getName</span>() {
+        <span class="kw">return</span> name;
+    }
+
+    <span class="kw">public</span> <span class="type">String</span> <span class="fn">getDepartment</span>() {
+        <span class="kw">return</span> department;
     }
 }</code></pre>
-      </div>
-    </section>
+  </div>
 
-    <hr class="divider"/>
+  <br/>
+
+  <div class="code-wrap">
+    <div class="code-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="filename">BeanDemo.java</span>
+      <span class="lang-tag">Java</span>
+    </div>
+
+<pre><code><span class="kw">public class</span> <span class="type">BeanDemo</span> {
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="type">String</span>[] args) {
+
+        <span class="com">// Create Bean Object</span>
+        <span class="type">StudentBeanJava</span> s = <span class="kw">new</span> <span class="type">StudentBeanJava</span>();
+
+        <span class="com">// Set Values</span>
+        s.<span class="fn">setRegno</span>(101);
+        s.<span class="fn">setName</span>(<span class="str">"Akash"</span>);
+        s.<span class="fn">setDepartment</span>(<span class="str">"CSE"</span>);
+
+        <span class="com">// Get Values</span>
+        System.out.<span class="fn">println</span>(<span class="str">"Register No : "</span> + s.<span class="fn">getRegno</span>());
+        System.out.<span class="fn">println</span>(<span class="str">"Name : "</span> + s.<span class="fn">getName</span>());
+        System.out.<span class="fn">println</span>(<span class="str">"Department : "</span> + s.<span class="fn">getDepartment</span>());
+    }
+}</code></pre>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+        
 
     <!-- 10: HashMap -->
     <section class="section" id="s10">
